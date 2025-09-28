@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import WordItem from './WordItem'
+import Constants from 'expo-constants'
 
 // import AppBar from './AppBar'
 // import SignIn from './SignIn'
@@ -8,6 +9,7 @@ import WordItem from './WordItem'
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: theme.colors.mainBackground,
+    paddingTop: Constants.statusBarHeight,
     flexGrow: 1,
     flexShrink: 1
   }

@@ -14,3 +14,9 @@ export type Sense = {
   glossEN: string
   translations: Translations
 }
+
+export enum Language {
+  EN = 'en',
+  FR = 'fr',
+  ES = 'es',
+}
