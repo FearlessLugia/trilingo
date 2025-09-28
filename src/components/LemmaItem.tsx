@@ -65,7 +65,7 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{en.lemma}</Text>
+              <Text style={styles.buttonText}>{en.lemma.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>
@@ -78,7 +78,7 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{fr.lemma}</Text>
+              <Text style={styles.buttonText}>{fr.lemma.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>
@@ -91,7 +91,7 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{es.lemma}</Text>
+              <Text style={styles.buttonText}>{es.lemma.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>
