@@ -1,12 +1,7 @@
-export type Translation = {
-  lemma: string
-  pos: string
-}
-
 export type Translations = {
-  EN: Translation[]
-  FR: Translation[]
-  ES: Translation[]
+  EN: string[]
+  FR: string[]
+  ES: string[]
 }
 
 export type Sense = {

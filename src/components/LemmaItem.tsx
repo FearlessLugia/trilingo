@@ -1,4 +1,4 @@
-import { Sense, Translation } from '../../types'
+import { Sense } from '../../types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import theme from '../../theme'
 
@@ -59,39 +59,39 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
       <View style={styles.lemma}>
         {/*<Text>English</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.EN.map((en: Translation) => (
+          {sense.translations.EN.map((en) => (
             <Pressable
               style={styles.en}
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{en.lemma.replace(/_/g, ' ')}</Text>
+              <Text style={styles.buttonText}>{en.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>
         
         {/*<Text>French</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.FR.map((fr: Translation) => (
+          {sense.translations.FR.map((fr) => (
             <Pressable
               style={styles.fr}
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{fr.lemma.replace(/_/g, ' ')}</Text>
+              <Text style={styles.buttonText}>{fr.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>
         
         {/*<Text>Spanish</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.ES.map((es: Translation) => (
+          {sense.translations.ES.map((es) => (
             <Pressable
               style={styles.es}
               onPress={() => {
               }}
             >
-              <Text style={styles.buttonText}>{es.lemma.replace(/_/g, ' ')}</Text>
+              <Text style={styles.buttonText}>{es.replace(/_/g, ' ')}</Text>
             </Pressable>
           ))}
         </View>

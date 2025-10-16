@@ -7,40 +7,16 @@ export const data = {
       'glossEN': 'sloping land (especially the slope beside a body of water)',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'rive',
-            'pos': 'noun'
-          }
+          'banque',
+          'rive'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'margen',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'ES',
-            'lemma': 'orilla',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'ES',
-            'lemma': 'vera',
-            'pos': 'noun'
-          }
+          'margen',
+          'orilla',
+          'vera'
         ]
       },
       'examples': {
@@ -55,40 +31,16 @@ export const data = {
       'glossEN': 'put into a bank account',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'deposit',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'deposit',
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'déposer',
-            'pos': 'verb'
-          }
+          'banque',
+          'déposer'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'depositar',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'ES',
-            'lemma': 'ingresar',
-            'pos': 'verb'
-          }
+          'depositar',
+          'ingresar'
         ]
       },
       'examples': {
@@ -102,50 +54,18 @@ export const data = {
       'glossEN': 'have confidence or faith in',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'trust',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'swear',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'rely',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'trust',
+          'swear',
+          'rely',
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'avoir_foi',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'compter_sur',
-            'pos': 'verb'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'faire_confiance',
-            'pos': 'verb'
-          }
+          'avoir_foi',
+          'compter_sur',
+          'faire_confiance'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'confiar',
-            'pos': 'verb'
-          }
+          'confiar'
         ]
       },
       'examples': {
@@ -162,30 +82,14 @@ export const data = {
       'glossEN': 'the funds held by a gambling house or the dealer in some gambling games',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'rive',
-            'pos': 'noun'
-          }
+          'banque',
+          'rive'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'banca',
-            'pos': 'noun'
-          }
+          'banca'
         ]
       },
       'examples': {
@@ -199,45 +103,17 @@ export const data = {
       'glossEN': 'a container (usually with a slot in the top) for keeping money at home',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'savings_bank',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'coin_bank',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'money_box',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'savings_bank',
+          'coin_bank',
+          'money_box',
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'caja_de_caudales',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'ES',
-            'lemma': 'hucha',
-            'pos': 'noun'
-          }
+          'caja_de_caudales',
+          'hucha'
         ]
       },
       'examples': {
@@ -251,25 +127,13 @@ export const data = {
       'glossEN': 'a long ridge or pile',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'banco',
-            'pos': 'noun'
-          }
+          'banco'
         ]
       },
       'examples': {
@@ -283,25 +147,13 @@ export const data = {
       'glossEN': 'a supply or stock held in reserve for future use (especially in emergencies)',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'banco',
-            'pos': 'noun'
-          }
+          'banco'
         ]
       }
     },
@@ -310,30 +162,14 @@ export const data = {
       'glossEN': 'a building in which the business of banking transacted',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'bank_building',
-            'pos': 'noun'
-          }
+          'bank',
+          'bank_building'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'banco',
-            'pos': 'noun'
-          }
+          'banco'
         ]
       },
       'examples': {
@@ -347,25 +183,13 @@ export const data = {
       'glossEN': 'tip laterally',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'ladear',
-            'pos': 'verb'
-          }
+          'ladear'
         ]
       },
       'examples': {
@@ -379,25 +203,13 @@ export const data = {
       'glossEN': 'enclose with a bank',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'embancar',
-            'pos': 'verb'
-          }
+          'embancar'
         ]
       },
       'examples': {
@@ -411,25 +223,13 @@ export const data = {
       'glossEN': 'do business with a bank or keep an account at a bank',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'operar_en_bancos',
-            'pos': 'verb'
-          }
+          'operar_en_bancos'
         ]
       },
       'examples': {
@@ -443,40 +243,16 @@ export const data = {
       'glossEN': 'a financial institution that accepts deposits and channels the money into lending activities',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'depository_financial_institution',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'banking_concern',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'banking_company',
-            'pos': 'noun'
-          }
+          'depository_financial_institution',
+          'bank',
+          'banking_concern',
+          'banking_company'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'banco',
-            'pos': 'noun'
-          }
+          'banco'
         ]
       },
       'examples': {
@@ -491,33 +267,13 @@ export const data = {
       'glossEN': 'a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'cant',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'EN',
-            'lemma': 'camber',
-            'pos': 'noun'
-          }
+          'bank',
+          'cant',
+          'camber'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          },
-          {
-            'lang': 'FR',
-            'lemma': 'côte',
-            'pos': 'noun'
-          }
+          'banque',
+          'côte'
         ],
         'ES': []
       }
@@ -527,19 +283,11 @@ export const data = {
       'glossEN': 'an arrangement of similar objects in a row or in tiers',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [],
         'ES': [
-          {
-            'lang': 'ES',
-            'lemma': 'batería',
-            'pos': 'noun'
-          }
+          'batería'
         ]
       },
       'examples': {
@@ -553,18 +301,10 @@ export const data = {
       'glossEN': 'a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'noun'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'noun'
-          }
+          'banque'
         ],
         'ES': []
       },
@@ -579,18 +319,10 @@ export const data = {
       'glossEN': 'act as the banker in a game or in gambling',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': []
       }
@@ -600,18 +332,10 @@ export const data = {
       'glossEN': 'be in the banking business',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': []
       }
@@ -621,18 +345,10 @@ export const data = {
       'glossEN': 'cover with ashes so to control the rate of burning',
       'translations': {
         'EN': [
-          {
-            'lang': 'EN',
-            'lemma': 'bank',
-            'pos': 'verb'
-          }
+          'bank'
         ],
         'FR': [
-          {
-            'lang': 'FR',
-            'lemma': 'banque',
-            'pos': 'verb'
-          }
+          'banque'
         ],
         'ES': []
       },
