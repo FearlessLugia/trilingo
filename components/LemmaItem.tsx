@@ -1,9 +1,9 @@
-import { Sense } from '../../types'
+import { Sense } from '../types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import theme from '../../theme'
+import { colors } from "../constants/colors";
 
 const baseLangStyle = {
-  color: theme.colors.white,
+  color: colors.white,
   justifyContent: 'center',
   borderRadius: 5,
   marginTop: 5,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   
   en: {
     ...baseLangStyle,
-    backgroundColor: theme.colors.primary
+    backgroundColor: colors.primary
   },
   
   fr: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   
   buttonText: {
-    color: theme.colors.white,
+    color: colors.white,
     margin: 5
   }
 })
