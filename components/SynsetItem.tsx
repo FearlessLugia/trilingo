@@ -1,4 +1,4 @@
-import { Sense } from '../types'
+import { Synset } from '../types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { colors } from "../constants/colors";
 
@@ -13,7 +13,11 @@ const baseLangStyle = {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderRadius: 5,
+    borderWidth: 1,
+    marginHorizontal: 5,
+    padding: 5
   },
   
   lemma:{
@@ -29,17 +33,17 @@ const styles = StyleSheet.create({
     marginTop: 6
   },
   
-  en: {
+  eng: {
     ...baseLangStyle,
     backgroundColor: colors.primary
   },
   
-  fr: {
+  fra: {
     ...baseLangStyle,
     backgroundColor: 'orange'
   },
   
-  es: {
+  spa: {
     ...baseLangStyle,
     backgroundColor: '#FD92BA'
   },
@@ -50,18 +54,18 @@ const styles = StyleSheet.create({
   }
 })
 
-const LemmaItem = ({ sense }: { sense: Sense }) => {
+const SynsetItem = ({ synset }: { synset: Synset }) => {
   return (
     <View style={styles.container}>
-      <Text>{sense.id}</Text>
-      <Text>{sense.glossEN}</Text>
+      <Text>{synset.id}</Text>
+      <Text>{synset.gloss.eng}</Text>
       
       <View style={styles.lemma}>
         {/*<Text>English</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.EN.map((en) => (
+          {synset.lemmas.eng.map((en) => (
             <Pressable
-              style={styles.en}
+              style={styles.eng}
               onPress={() => {
               }}
             >
@@ -72,9 +76,9 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
         
         {/*<Text>French</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.FR.map((fr) => (
+          {synset.lemmas.fra.map((fr) => (
             <Pressable
-              style={styles.fr}
+              style={styles.fra}
               onPress={() => {
               }}
             >
@@ -85,9 +89,9 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
         
         {/*<Text>Spanish</Text>*/}
         <View style={styles.langRow}>
-          {sense.translations.ES.map((es) => (
+          {synset.lemmas.spa.map((es) => (
             <Pressable
-              style={styles.es}
+              style={styles.spa}
               onPress={() => {
               }}
             >
@@ -100,4 +104,4 @@ const LemmaItem = ({ sense }: { sense: Sense }) => {
   )
 }
 
-export default LemmaItem
+export default SynsetItem

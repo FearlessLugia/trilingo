@@ -1,17 +1,17 @@
-export type Translations = {
-  EN: string[]
-  FR: string[]
-  ES: string[]
+export type Lemmas = {
+  eng: string[]
+  fra: string[]
+  spa: string[]
 }
 
-export type Sense = {
+export type Synset = {
   id: string
-  glossEN: string
-  translations: Translations
+  gloss: { eng: string }
+  lemmas: Lemmas
 }
 
-export enum Language {
-  EN = 'en',
-  FR = 'fr',
-  ES = 'es',
-}
+// export enum Language {
+//   EN = 'en',
+//   FR = 'fr',
+//   ES = 'es',
+// }

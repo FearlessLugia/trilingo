@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10
+    height: 5
   }
 })
 

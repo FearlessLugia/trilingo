@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View, Text } from 'react-native'
 import ItemSeparator from './ItemSeparator'
 import { data } from '../data'
-import LemmaItem from './LemmaItem'
+import SynsetItem from './SynsetItem'
 
 const styles = StyleSheet.create({
   container: {}
@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
 const WordItem = () => {
   return (
     <FlatList
-      data={data.senses}
-      renderItem={({ item }) => <LemmaItem sense={item} />}
+      data={data.synsets}
+      renderItem={({ item }) => <SynsetItem synset={item} />}
       keyExtractor={({ id }) => id}
       // ListHeaderComponent={() => <WordDisplay item={word} />}
       ItemSeparatorComponent={ItemSeparator}
