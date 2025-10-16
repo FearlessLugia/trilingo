@@ -6,8 +6,8 @@ const baseLangStyle = {
   color: colors.white,
   justifyContent: 'center',
   borderRadius: 5,
-  marginTop: 5,
-  marginHorizontal: 5,
+  marginTop: 3,
+  marginHorizontal: 2,
   alignSelf: 'flex-start'
 }
 
@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
   
   lemma:{
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   
   langRow: {
     width: 100,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginHorizontal: 16,
+    marginLeft: 1,
     marginTop: 6
   },
   
