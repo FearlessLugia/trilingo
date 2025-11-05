@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { globalStyles } from '../../../styles/globalStyles'
-import { data } from '../../../data'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
   <Text>{synsetId}</Text>
@@ -16,7 +16,7 @@ const SynsetScreenHeader = ({ synsetId }: { synsetId: string }) => {
         style={styles.backButton}
         onPress={() => router.back()}
       >
-        <Text>Back</Text>
+        <Ionicons name='chevron-back-sharp' size={24} color='black' />
       </Pressable>
       
       <View style={styles.leftContainer}>
@@ -32,7 +32,7 @@ const SynsetScreen = () => {
   
   return (
     <View style={globalStyles.container}>
-      <SynsetScreenHeader synsetId={id} />
+      <SynsetScreenHeader synsetId={id as string} />
       
       {/*<Gloss />*/}
       
@@ -55,15 +55,11 @@ const styles = StyleSheet.create({
   },
   
   backButton: {
-    width: 46,
     paddingRight: 10,
     alignItems: 'center'
   },
   
   leftContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10
+    flex: 1
   }
 })
