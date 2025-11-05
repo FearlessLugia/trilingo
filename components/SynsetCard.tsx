@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const SynsetItem = ({ synset }: { synset: Synset }) => {
+const SynsetCard = ({ synset }: { synset: Synset }) => {
   return (
     <View style={styles.container}>
       <Text>{synset.id}</Text>
@@ -104,4 +104,4 @@ const SynsetItem = ({ synset }: { synset: Synset }) => {
   )
 }
 
-export default SynsetItem
+export default SynsetCard
