@@ -1,27 +1,36 @@
-import { StyleSheet, View } from 'react-native'
-import Constants from 'expo-constants'
-import WordScreen from './word/[headword]'
+import { StyleSheet, View, Text } from 'react-native'
+import { globalStyles } from '../../styles/globalStyles'
 
-// import AppBar from './AppBar'
-// import SignIn from './SignIn'
-// import theme from '../theme'
+const SearchBar = () => {
+  return (
+    <View style={styles.searchBar}>
+      <Text>Search...</Text>
+    </View>
+  )
+}
 
-const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: theme.colors.mainBackground,
-    // paddingTop: Constants.statusBarHeight,
-    flexGrow: 1,
-    flexShrink: 1
-  }
-})
+const SearchedHistory = () => {
+  return (
+    <View style={styles.history}>
+      <Text>History Item 1</Text>
+      <Text>History Item 2</Text>
+    </View>
+  )
+}
 
 const Main = () => {
   return (
-    <View style={styles.container}>
-      {/*<AppBar />*/}
-      <WordScreen />
+    <View style={globalStyles.container}>
+      <SearchBar />
+      
+      <SearchedHistory />
     </View>
   )
 }
 
 export default Main
+
+const styles = StyleSheet.create({
+  searchBar: {},
+  history: {}
+})
