@@ -5,20 +5,29 @@ import { data } from '../../../data'
 import { globalStyles } from '../../../styles/globalStyles'
 import { useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { colors } from '../../../constants/colors'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{headword}</Text>
 )
 
-const Pivot = ({ pivot }: { pivot: string }) => (
-  <Text>{pivot.toUpperCase()}</Text>
-)
+const Pivot = ({ pivot }: { pivot: string }) => {
+  const color = colors[pivot as keyof typeof colors]
+  
+  return (
+    <View style={[styles.pivot, { borderColor: color }]}>
+      <Text style={[styles.pivotText, { color: color }]}>
+        {pivot.toUpperCase()}
+      </Text>
+    </View>
+  )
+}
 
 const WordScreenHeader = () => {
   const router = useRouter()
   
   const toggleStar = () => {
-  
+    // TODO
   }
   
   return (
@@ -80,5 +89,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10
-  }
+  },
+  
+  pivot: {
+    borderWidth: 1,
+    padding: 2,
+    borderRadius: 3
+  },
+  
+  pivotText: {}
 })

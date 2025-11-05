@@ -6,9 +6,9 @@ import LemmaPerLanguage from './LemmaPerLanguage'
 const LemmaGroup = ({ lemmas }: { lemmas: Lemmas }) => {
   return (
     <View style={styles.lemmaGroup}>
-      <LemmaPerLanguage lemmas={lemmas.eng} color='englishColor' />
-      <LemmaPerLanguage lemmas={lemmas.fra} color='frenchColor' />
-      <LemmaPerLanguage lemmas={lemmas.spa} color='spanishColor' />
+      <LemmaPerLanguage lemmas={lemmas.eng} color='eng' />
+      <LemmaPerLanguage lemmas={lemmas.fra} color='fra' />
+      <LemmaPerLanguage lemmas={lemmas.spa} color='spa' />
     </View>
   )
 }

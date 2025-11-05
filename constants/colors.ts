@@ -14,7 +14,7 @@ export const colors = {
   mainBackground: '#e1e4e8',
   error: '#d73a4a',
   
-  englishColor: '#ffc107',
-  frenchColor: '#28a745',
-  spanishColor: '#17a2b8'
+  eng: '#17a2b8',
+  fra: '#28a745',
+  spa: '#17a2b8'
 };
