@@ -1,6 +1,7 @@
 import { Synset } from '../types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { colors } from "../constants/colors";
+import { colors } from '../constants/colors'
+import { useRouter } from 'expo-router'
 
 const baseLangStyle = {
   color: colors.white,
@@ -20,9 +21,9 @@ const styles = StyleSheet.create({
     padding: 5
   },
   
-  lemma:{
+  lemma: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   
   langRow: {
@@ -55,52 +56,61 @@ const styles = StyleSheet.create({
 })
 
 const SynsetCard = ({ synset }: { synset: Synset }) => {
+  const router = useRouter()
+  
   return (
-    <View style={styles.container}>
-      <Text>{synset.id}</Text>
-      <Text>{synset.gloss.eng}</Text>
-      
-      <View style={styles.lemma}>
-        {/*<Text>English</Text>*/}
-        <View style={styles.langRow}>
-          {synset.lemmas.eng.map((en) => (
-            <Pressable
-              style={styles.eng}
-              onPress={() => {
-              }}
-            >
-              <Text style={styles.buttonText}>{en.replace(/_/g, ' ')}</Text>
-            </Pressable>
-          ))}
-        </View>
+    <Pressable
+      onPress={() => router.push(`/synset/${synset.id}`)}
+    >
+      <View style={styles.container}>
+        <Text>{synset.id}</Text>
+        <Text>{synset.gloss.eng}</Text>
         
-        {/*<Text>French</Text>*/}
-        <View style={styles.langRow}>
-          {synset.lemmas.fra.map((fr) => (
-            <Pressable
-              style={styles.fra}
-              onPress={() => {
-              }}
-            >
-              <Text style={styles.buttonText}>{fr.replace(/_/g, ' ')}</Text>
-            </Pressable>
-          ))}
-        </View>
-        
-        {/*<Text>Spanish</Text>*/}
-        <View style={styles.langRow}>
-          {synset.lemmas.spa.map((es) => (
-            <Pressable
-              style={styles.spa}
-              onPress={() => {
-              }}
-            >
-              <Text style={styles.buttonText}>{es.replace(/_/g, ' ')}</Text>
-            </Pressable>
-          ))}
+        <View style={styles.lemma}>
+          {/*<Text>English</Text>*/}
+          <View style={styles.langRow}>
+            {synset.lemmas.eng.map((en) => (
+              <Pressable
+                key={en}
+                style={styles.eng}
+                onPress={() => {
+                }}
+              >
+                <Text style={styles.buttonText}>{en.replace(/_/g, ' ')}</Text>
+              </Pressable>
+            ))}
+          </View>
+          
+          {/*<Text>French</Text>*/}
+          <View style={styles.langRow}>
+            {synset.lemmas.fra.map((fr) => (
+              <Pressable
+                key={fr}
+                style={styles.fra}
+                onPress={() => {
+                }}
+              >
+                <Text style={styles.buttonText}>{fr.replace(/_/g, ' ')}</Text>
+              </Pressable>
+            ))}
+          </View>
+          
+          {/*<Text>Spanish</Text>*/}
+          <View style={styles.langRow}>
+            {synset.lemmas.spa.map((es) => (
+              <Pressable
+                key={es}
+                style={styles.spa}
+                onPress={() => {
+                }}
+              >
+                <Text style={styles.buttonText}>{es.replace(/_/g, ' ')}</Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

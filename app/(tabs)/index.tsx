@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
-import WordItem from '../../components/WordItem'
 import Constants from 'expo-constants'
+import WordScreen from './word/[headword]'
 
 // import AppBar from './AppBar'
 // import SignIn from './SignIn'
@@ -19,7 +19,7 @@ const Main = () => {
   return (
     <View style={styles.container}>
       {/*<AppBar />*/}
-      <WordItem />
+      <WordScreen />
     </View>
   )
 }
