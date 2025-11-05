@@ -12,5 +12,9 @@ export const colors = {
   
   textSecondary: '#586069',
   mainBackground: '#e1e4e8',
-  error: '#d73a4a'
+  error: '#d73a4a',
+  
+  englishColor: '#ffc107',
+  frenchColor: '#28a745',
+  spanishColor: '#17a2b8'
 };
