@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, View, Text } from 'react-native'
 import ItemSeparator from '../../../components/ItemSeparator'
 import SynsetCard from '../../../components/SynsetCard'
 import { data } from '../../../data'
+import { globalStyles } from '../../../styles/globalStyles'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{headword}</Text>
@@ -29,13 +30,15 @@ const WordScreenHeader = () => (
 const WordScreen = () => {
   
   return (
-    <FlatList
-      data={data.synsets}
-      renderItem={({ item }) => <SynsetCard synset={item} />}
-      keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <WordScreenHeader />}
-      ItemSeparatorComponent={ItemSeparator}
-    />
+    <View style={globalStyles.container}>
+      <FlatList
+        data={data.synsets}
+        renderItem={({ item }) => <SynsetCard synset={item} />}
+        keyExtractor={({ id }) => id}
+        ListHeaderComponent={() => <WordScreenHeader />}
+        ItemSeparatorComponent={ItemSeparator}
+      />
+    </View>
   )
 }
 
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
-    height: 100
+    height: 60
   },
   
   backButton: {
