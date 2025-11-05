@@ -2,6 +2,8 @@ import { Synset } from '../types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { colors } from '../constants/colors'
 import { useRouter } from 'expo-router'
+import Gloss from './Gloss'
+import LemmaGroup from './LemmaGroup'
 
 const baseLangStyle = {
   color: colors.white,
@@ -64,51 +66,10 @@ const SynsetCard = ({ synset }: { synset: Synset }) => {
     >
       <View style={styles.container}>
         <Text>{synset.id}</Text>
-        <Text>{synset.gloss.eng}</Text>
         
-        <View style={styles.lemma}>
-          {/*<Text>English</Text>*/}
-          <View style={styles.langRow}>
-            {synset.lemmas.eng.map((en) => (
-              <Pressable
-                key={en}
-                style={styles.eng}
-                onPress={() => {
-                }}
-              >
-                <Text style={styles.buttonText}>{en.replace(/_/g, ' ')}</Text>
-              </Pressable>
-            ))}
-          </View>
-          
-          {/*<Text>French</Text>*/}
-          <View style={styles.langRow}>
-            {synset.lemmas.fra.map((fr) => (
-              <Pressable
-                key={fr}
-                style={styles.fra}
-                onPress={() => {
-                }}
-              >
-                <Text style={styles.buttonText}>{fr.replace(/_/g, ' ')}</Text>
-              </Pressable>
-            ))}
-          </View>
-          
-          {/*<Text>Spanish</Text>*/}
-          <View style={styles.langRow}>
-            {synset.lemmas.spa.map((es) => (
-              <Pressable
-                key={es}
-                style={styles.spa}
-                onPress={() => {
-                }}
-              >
-                <Text style={styles.buttonText}>{es.replace(/_/g, ' ')}</Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
+        <Gloss gloss={synset.gloss.eng} />
+        
+        <LemmaGroup lemmas={synset.lemmas} />
       </View>
     </Pressable>
   )
