@@ -1,15 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { RecordEntry } from '../types'
+import { useRouter } from 'expo-router'
 
 const RecordList = ({ recordList }: { recordList: RecordEntry[] }) => {
-  console.log('recordList', recordList)
+  const router = useRouter()
   
   return (
     <View style={styles.recordList}>
       {recordList.map(({ headword, pivot, timestamp }) => (
-        <Text key={timestamp}>
-          {headword} {pivot}
-        </Text>
+        <Pressable onPress={() =>
+          router.push(`/word/${headword}/${pivot}`)
+        }>
+          <Text key={timestamp}>
+            {headword} {pivot}
+          </Text>
+        </Pressable>
       ))}
     </View>
   )
