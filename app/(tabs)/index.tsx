@@ -26,6 +26,7 @@ const SearchBar = () => {
   return (
     <View style={styles.searchBar}>
       <TextInput
+        autoCapitalize='none'
         style={styles.searchBarInput}
         placeholder='Search...'
         value={query}
