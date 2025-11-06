@@ -9,8 +9,8 @@ import { Pivot, SynsetsRequest } from '../../../types'
 import useSynsets from '../../../hooks/useSynsets'
 import { underscoreToSpace } from '../../../utils/stringUtils'
 import { AppDispatch } from '../../../store/store'
-import { useDispatch } from 'react-redux'
-import { addSaved } from '../../../features/saved/savedSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { addSaved, deleteSaved, selectSaved } from '../../../features/saved/savedSlice'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{underscoreToSpace(headword)}</Text>
@@ -32,13 +32,18 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   
+  const saved = useSelector(selectSaved)
+  
+  const isSaved = saved.some((it: { headword: string; pivot: string }) =>
+    it.headword.toLowerCase() === headword.toLowerCase() && it.pivot === pivot
+  )
+  
   const toggleStar = () => {
-    const newRecordEntry = {
-      headword,
-      pivot
+    if (!isSaved) {
+      dispatch(addSaved({ headword, pivot }))
+    } else {
+      dispatch(deleteSaved({ headword, pivot }))
     }
-    
-    dispatch(addSaved(newRecordEntry))
   }
   
   return (
@@ -55,11 +60,8 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
         <PivotDisplay pivot={pivot} />
       </View>
       
-      <Pressable
-        onPress={toggleStar}
-      >
-        <Ionicons name='star-outline' size={24} color='black' />
-        {/*<Ionicons name="star" size={24} color="black" />*/}
+      <Pressable onPress={toggleStar}>
+        <Ionicons name={isSaved ? 'star' : 'star-outline'} size={24} color='orange' />
       </Pressable>
     </View>
   )
@@ -69,7 +71,6 @@ const WordScreen = () => {
   const { headword, pivot = 'eng' } = useLocalSearchParams()
   const requestBody: SynsetsRequest = { query: headword as string, pivot: pivot as Pivot }
   const { data } = useSynsets(requestBody)
-  console.log('data.headword', data?.headword)
   
   if (!data) {
     return (<View style={globalStyles.container}>

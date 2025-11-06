@@ -25,7 +25,7 @@ const savedSlice = createSlice({
       saveSaved(state.saved)
     },
     
-    deleteSaved: (state, action: PayloadAction<RecordEntry>) => {
+    deleteSaved: (state, action: PayloadAction<Omit<RecordEntry, 'timestamp'>>) => {
       state.saved = state.saved.filter(s =>
         s.headword !== action.payload.headword || s.pivot !== action.payload.pivot)
       saveSaved(state.saved)
