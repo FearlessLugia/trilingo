@@ -1,0 +1,55 @@
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { saveHistory } from '../../storage/historyStorage'
+import { HistoryEntry } from '../../types'
+import { RootState } from '../../store/store'
+
+interface HistoryState {
+  history: HistoryEntry[];
+  loaded: boolean;
+}
+
+const initialState: HistoryState = {
+  history: [],
+  loaded: false
+}
+
+const historySlice = createSlice({
+  name: 'history',
+  initialState,
+  reducers: {
+    addHistory: (state, action: PayloadAction<Omit<HistoryEntry, 'timestamp'>>) => {
+      const timestamp = Date.now()
+      console.log('timestamp', timestamp)
+      const newHistory: HistoryEntry = { timestamp, ...action.payload }
+      state.history.push(newHistory)
+      saveHistory(state.history)
+    },
+    
+    deleteHistory: (state, action: PayloadAction<HistoryEntry>) => {
+      state.history = state.history.filter(h =>
+        h.headword !== action.payload.headword || h.pivot !== action.payload.pivot)
+      saveHistory(state.history)
+    },
+    
+    clearHistory: (state) => {
+      state.history = []
+      saveHistory(state.history)
+    },
+    
+    setHistory: (state, action: PayloadAction<HistoryEntry[]>) => {
+      // Your code here
+      state.history = action.payload
+      state.loaded = true
+    }
+  }
+})
+
+export const { addHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
+
+export const selecthistory = (state: RootState) =>
+  state.history.history
+
+// export const selectHistoryById = (state: RootState, id: string) =>
+//   state.history.history.find(h => h.id === id)
+
+export default historySlice.reducer

@@ -28,3 +28,9 @@ export type SynsetsResponse = {
   pivot: Pivot
   synsets: Synset[]
 }
+
+export type HistoryEntry = {
+  headword: string
+  pivot: Pivot
+  timestamp: number
+}
