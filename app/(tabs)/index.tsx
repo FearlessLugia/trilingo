@@ -2,25 +2,27 @@ import { StyleSheet, View, Text, TextInput } from 'react-native'
 import { globalStyles } from '../../styles/globalStyles'
 import { useState } from 'react'
 import { useRouter } from 'expo-router'
+import { Pivot } from '../../types'
 
 const SearchBar = () => {
   const [query, setQuery] = useState('')
+  const [pivot, setPivot] = useState<Pivot>('eng')
   const router = useRouter()
   
   const handleSearch = () => {
-    if (query.trim() !== '') {
+    if (/\p{L}/u.test(query.trim())) {
       router.push({
-        pathname: '/word/[headword]',
-        params: { headword: query.trim(), pivot: 'eng' }
+        pathname: '/word/[headword]/[pivot]',
+        params: { headword: query.trim(), pivot: pivot.trim() }
       })
-      setQuery('')
     }
+    setQuery('')
   }
   
   return (
     <View style={styles.searchBar}>
       <TextInput
-        // style={styles.input}
+        style={styles.searchBarInput}
         placeholder='Search...'
         value={query}
         onChangeText={setQuery}
@@ -54,5 +56,8 @@ export default Main
 
 const styles = StyleSheet.create({
   searchBar: {},
+  
+  searchBarInput: {},
+  
   history: {}
 })
