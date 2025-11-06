@@ -1,5 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { colors } from '../constants/colors'
+import { StyleSheet, View } from 'react-native'
 import { Lemmas } from '../types'
 import LemmaPerLanguage from './LemmaPerLanguage'
 
@@ -17,14 +16,6 @@ export default LemmaGroup
 
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    borderRadius: 5,
-    borderWidth: 1,
-    marginHorizontal: 5,
-    padding: 5
-  },
-  
   lemmaGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between'
