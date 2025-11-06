@@ -7,11 +7,17 @@ import { Provider } from 'react-redux'
 import { loadHistory } from '../storage/historyStorage'
 import { setHistory } from '../features/history/historySlice'
 import { useEffect } from 'react'
+import { loadSaved } from '../storage/savedStorage'
+import { setSaved } from '../features/saved/savedSlice'
 
 export default function RootLayout() {
   useEffect(() => {
     loadHistory().then((history) => {
       store.dispatch(setHistory(history))
+    })
+    
+    loadSaved().then((saved) => {
+      store.dispatch(setSaved(saved))
     })
   }, [])
   
