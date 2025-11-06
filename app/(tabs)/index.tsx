@@ -3,6 +3,7 @@ import { globalStyles } from '../../styles/globalStyles'
 import { useState } from 'react'
 import { useRouter } from 'expo-router'
 import { Pivot } from '../../types'
+import { spaceToUnderscore } from '../../utils/stringUtils'
 
 const SearchBar = () => {
   const [query, setQuery] = useState('')
@@ -13,7 +14,10 @@ const SearchBar = () => {
     if (/\p{L}/u.test(query.trim())) {
       router.push({
         pathname: '/word/[headword]/[pivot]',
-        params: { headword: query.trim(), pivot: pivot.trim() }
+        params: {
+          headword: spaceToUnderscore(query.trim()),
+          pivot
+        }
       })
     }
     setQuery('')

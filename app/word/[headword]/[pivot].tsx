@@ -7,9 +7,10 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { colors } from '../../../constants/colors'
 import { Pivot, SynsetsRequest } from '../../../types'
 import useSynsets from '../../../hooks/useSynsets'
+import { underscoreToSpace } from '../../../utils/stringUtils'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
-  <Text>{headword}</Text>
+  <Text>{underscoreToSpace(headword)}</Text>
 )
 
 const PivotDisplay = ({ pivot }: { pivot: string }) => {

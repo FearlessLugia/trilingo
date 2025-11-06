@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { colors } from '../constants/colors'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Pivot } from '../types'
+import { underscoreToSpace } from '../utils/stringUtils'
 
 const LemmaPerLanguage = ({ lemmas, pivot }: {
   lemmas: string[],
@@ -27,7 +28,7 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
             })
           }}
         >
-          <Text style={styles.buttonText}>{lemma.replace(/_/g, ' ')}</Text>
+          <Text style={styles.buttonText}>{underscoreToSpace(lemma)}</Text>
         </Pressable>
       ))}
     </View>
