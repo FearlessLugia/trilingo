@@ -5,9 +5,6 @@ const TabsLayout = () => (
     <Tabs.Screen name='index' options={{ title: 'Trilingo' }} />
     <Tabs.Screen name='saved' options={{ title: 'Saved' }} />
     <Tabs.Screen name='me' options={{ title: 'Me' }} />
-    
-    <Tabs.Screen name='word/[headword]/[pivot]' options={{ href: null }} />
-    <Tabs.Screen name='synset/[id]' options={{ href: null }} />
   </Tabs>
 )
 

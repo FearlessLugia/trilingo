@@ -1,12 +1,12 @@
 import { FlatList, StyleSheet, View, Text, Pressable } from 'react-native'
-import ItemSeparator from '../../../../components/ItemSeparator'
-import SynsetCard from '../../../../components/SynsetCard'
-import { globalStyles } from '../../../../styles/globalStyles'
+import ItemSeparator from '../../../components/ItemSeparator'
+import SynsetCard from '../../../components/SynsetCard'
+import { globalStyles } from '../../../styles/globalStyles'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { colors } from '../../../../constants/colors'
-import { Pivot, SynsetsRequest } from '../../../../types'
-import useSynsets from '../../../../hooks/useSynsets'
+import { colors } from '../../../constants/colors'
+import { Pivot, SynsetsRequest } from '../../../types'
+import useSynsets from '../../../hooks/useSynsets'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{headword}</Text>

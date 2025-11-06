@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
-import { globalStyles } from '../../../styles/globalStyles'
+import { globalStyles } from '../../styles/globalStyles'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
