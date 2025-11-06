@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import { selectSaved } from '../../features/saved/savedSlice'
 import RecordList from '../../components/RecordList'
 
-const SearchBar = () => {
+const FilterBar = () => {
   return (
-    <View style={styles.searchBar}>
-      <Text>Search...</Text>
+    <View style={styles.filterBar}>
+      <Text>Filter...</Text>
     </View>
   )
 }
@@ -17,7 +17,7 @@ const Saved = () => {
   
   return (
     <View style={globalStyles.container}>
-      <SearchBar />
+      <FilterBar />
       
       <RecordList recordList={saved} />
     </View>
@@ -27,6 +27,6 @@ const Saved = () => {
 export default Saved
 
 const styles = StyleSheet.create({
-  searchBar: {},
+  filterBar: {},
   saved: {}
 })
