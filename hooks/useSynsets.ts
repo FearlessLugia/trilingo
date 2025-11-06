@@ -11,7 +11,6 @@ const useSynsets = (body: SynsetsRequest) => {
     setLoading(true)
     
     const url = `${API_BASE_URL}/align`
-    console.log('url', url)
     
     const response = await fetch(url, {
       method: 'POST',
@@ -26,7 +25,8 @@ const useSynsets = (body: SynsetsRequest) => {
   
   useEffect(() => {
     fetchSynsets()
-  }, [])
+    console.log('   inside use effect change')
+  }, [body.query, body.pivot])
   
   return { data, loading, refetch: fetchSynsets }
 }
