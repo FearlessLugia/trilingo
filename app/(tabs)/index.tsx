@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput } from 'react-native'
+import { StyleSheet, View, TextInput } from 'react-native'
 import { globalStyles } from '../../styles/globalStyles'
 import { useState } from 'react'
 import { useRouter } from 'expo-router'
@@ -7,6 +7,7 @@ import { spaceToUnderscore } from '../../utils/stringUtils'
 import { addHistory, selectHistory } from '../../features/history/historySlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
+import RecordList from '../../components/RecordList'
 
 const SearchBar = () => {
   const [query, setQuery] = useState('')
@@ -16,16 +17,16 @@ const SearchBar = () => {
   
   const handleSearch = () => {
     if (/\p{L}/u.test(query.trim())) {
-      const newHistoryEntry = {
+      const newRecordEntry = {
         headword: spaceToUnderscore(query.trim()),
         pivot
       }
       
-      dispatch(addHistory(newHistoryEntry))
+      dispatch(addHistory(newRecordEntry))
       
       router.push({
         pathname: '/word/[headword]/[pivot]',
-        params: newHistoryEntry
+        params: newRecordEntry
       })
     }
     
@@ -47,27 +48,14 @@ const SearchBar = () => {
   )
 }
 
-const SearchedHistory = () => {
-  const history = useSelector(selectHistory)
-  console.log('history', history)
-  
-  return (
-    <View style={styles.history}>
-      {history.map(({ headword, pivot, timestamp }) => (
-        <Text key={timestamp}>
-          {headword} {pivot}
-        </Text>
-      ))}
-    </View>
-  )
-}
-
 const Main = () => {
+  const history = useSelector(selectHistory)
+  
   return (
     <View style={globalStyles.container}>
       <SearchBar />
       
-      <SearchedHistory />
+      <RecordList recordList={history} />
     </View>
   )
 }
