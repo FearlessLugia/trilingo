@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, View, Text, Pressable } from 'react-native'
 import ItemSeparator from '../../../components/ItemSeparator'
 import SynsetCard from '../../../components/SynsetCard'
 import { globalStyles } from '../../../styles/globalStyles'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { colors } from '../../../constants/colors'
 import { Pivot, SynsetsRequest } from '../../../types'
@@ -56,7 +56,8 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
 }
 
 const WordScreen = () => {
-  const requestBody: SynsetsRequest = { query: 'bank', pivot: 'eng' }
+  const { headword, pivot = 'eng' } = useLocalSearchParams()
+  const requestBody: SynsetsRequest = { query: headword as string, pivot: pivot as Pivot }
   const { data } = useSynsets(requestBody)
   
   if (!data) {
