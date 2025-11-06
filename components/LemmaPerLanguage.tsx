@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { colors } from '../constants/colors'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Pivot } from '../types'
 
 const LemmaPerLanguage = ({ lemmas, pivot }: {
@@ -8,6 +8,7 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
   pivot: Pivot
 }) => {
   const router = useRouter()
+  const { headword: currentHeadword, pivot: currentPivot } = useLocalSearchParams()
   
   return (
     <View style={styles.lemma}>
@@ -16,6 +17,10 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
           key={lemma}
           style={[styles.button, { backgroundColor: colors[pivot] }]}
           onPress={() => {
+            if (lemma == currentHeadword && pivot == currentPivot) {
+              return
+            }
+            
             router.push({
               pathname: '/word/[headword]/[pivot]',
               params: { headword: lemma, pivot }
