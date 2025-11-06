@@ -4,22 +4,31 @@ import { useState } from 'react'
 import { useRouter } from 'expo-router'
 import { Pivot } from '../../types'
 import { spaceToUnderscore } from '../../utils/stringUtils'
+import { addHistory, selectHistory } from '../../features/history/historySlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '../../store/store'
 
 const SearchBar = () => {
   const [query, setQuery] = useState('')
   const [pivot, setPivot] = useState<Pivot>('eng')
   const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
   
   const handleSearch = () => {
     if (/\p{L}/u.test(query.trim())) {
+      const newHistoryEntry = {
+        headword: spaceToUnderscore(query.trim()),
+        pivot
+      }
+      
+      dispatch(addHistory(newHistoryEntry))
+      
       router.push({
         pathname: '/word/[headword]/[pivot]',
-        params: {
-          headword: spaceToUnderscore(query.trim()),
-          pivot
-        }
+        params: newHistoryEntry
       })
     }
+    
     setQuery('')
   }
   
@@ -39,10 +48,16 @@ const SearchBar = () => {
 }
 
 const SearchedHistory = () => {
+  const history = useSelector(selectHistory)
+  console.log('history', history)
+  
   return (
     <View style={styles.history}>
-      <Text>History Item 1</Text>
-      <Text>History Item 2</Text>
+      {history.map(({ headword, pivot, timestamp }) => (
+        <Text key={timestamp}>
+          {headword} {pivot}
+        </Text>
+      ))}
     </View>
   )
 }

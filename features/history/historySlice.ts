@@ -37,7 +37,6 @@ const historySlice = createSlice({
     },
     
     setHistory: (state, action: PayloadAction<HistoryEntry[]>) => {
-      // Your code here
       state.history = action.payload
       state.loaded = true
     }
@@ -46,10 +45,7 @@ const historySlice = createSlice({
 
 export const { addHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
 
-export const selecthistory = (state: RootState) =>
+export const selectHistory = (state: RootState) =>
   state.history.history
-
-// export const selectHistoryById = (state: RootState, id: string) =>
-//   state.history.history.find(h => h.id === id)
 
 export default historySlice.reducer
