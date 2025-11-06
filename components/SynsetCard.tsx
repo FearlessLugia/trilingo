@@ -3,6 +3,9 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import Gloss from './Gloss'
 import LemmaGroup from './LemmaGroup'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store/store'
+import { pushSynset } from '../features/synsetStack/synsetStackSlice'
 
 const styles = StyleSheet.create({
   container: {
@@ -16,10 +19,14 @@ const styles = StyleSheet.create({
 
 const SynsetCard = ({ synset }: { synset: Synset }) => {
   const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
   
   return (
     <Pressable
-      onPress={() => router.push(`/synset/${synset.id}`)}
+      onPress={() => {
+        dispatch(pushSynset(synset))
+        router.push(`/synset/${synset.id}`)
+      }}
     >
       <View style={styles.container}>
         <Text>{synset.id}</Text>

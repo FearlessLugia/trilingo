@@ -17,7 +17,14 @@ const synsetStackSlice = createSlice({
   initialState,
   reducers: {
     pushSynset: (state, action: PayloadAction<Synset>) => {
-      state.entities[action.payload.id] = action.payload
+      const s = action.payload
+      
+      if (state.synsetStack[state.synsetStack.length - 1] !== s.id) {
+        state.synsetStack.push(s.id)
+      }
+      
+      state.entities[s.id] = s
+      console.log('state.synsetStack', state.synsetStack)
     },
     
     popSynset: (state, action: PayloadAction<Synset>) => {
@@ -31,6 +38,8 @@ const synsetStackSlice = createSlice({
       }
       
       delete state.entities[id]
+      
+      console.log('state.synsetStack.pop', state.synsetStack)
     },
     
     resetSynsetStack: (state) => {
@@ -44,5 +53,8 @@ export const { pushSynset, popSynset, resetSynsetStack } = synsetStackSlice.acti
 
 export const selectSynsetStack = (state: RootState) =>
   state.synsetStack.synsetStack
+
+export const selectSynsetById = (id: string) => (state: any) =>
+  state.synsetStack.entities[id]
 
 export default synsetStackSlice.reducer

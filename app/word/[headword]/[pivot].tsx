@@ -73,7 +73,8 @@ const WordScreen = () => {
   const { data } = useSynsets(requestBody)
   
   if (!data) {
-    return (<View style={globalStyles.container}>
+    return (
+      <View style={globalStyles.container}>
         <Text>Loading...</Text>
       </View>
     )

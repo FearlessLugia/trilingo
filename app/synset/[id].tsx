@@ -2,6 +2,10 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { globalStyles } from '../../styles/globalStyles'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import Gloss from '../../components/Gloss'
+import LemmaGroup from '../../components/LemmaGroup'
+import { useSelector } from 'react-redux'
+import { selectSynsetById } from '../../features/synsetStack/synsetStackSlice'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
   <Text>{synsetId}</Text>
@@ -26,19 +30,40 @@ const SynsetScreenHeader = ({ synsetId }: { synsetId: string }) => {
   )
 }
 
+const ExampleSentences = ({ examples }: {
+  examples: { eng: string[] }
+}) => {
+  // console.log('examples', examples)
+  
+  if (!examples) {
+    return null
+  }
+  
+  return (
+    <View>
+      <Text>Example Sentences</Text>
+      {examples?.eng.map((example, index) => (
+        <Text key={index}>"{example}"</Text>
+      ))}
+    </View>
+  )
+}
+
 const SynsetScreen = () => {
-  const router = useRouter()
   const { id } = useLocalSearchParams()
+  const synset = useSelector(selectSynsetById(id as string))
   
   return (
     <View style={globalStyles.container}>
       <SynsetScreenHeader synsetId={id as string} />
       
-      {/*<Gloss />*/}
-      
-      {/*<Lemmas />*/}
-      
-      {/*<ExampleSentences />*/}
+      <View style={styles.container}>
+        <Gloss gloss={synset.gloss.eng} />
+        
+        <LemmaGroup lemmas={synset.lemmas} />
+        
+        <ExampleSentences examples={synset.examples} />
+      </View>
     </View>
   )
 }
@@ -61,5 +86,10 @@ const styles = StyleSheet.create({
   
   leftContainer: {
     flex: 1
+  },
+  
+  container: {
+    padding: 5,
+    gap: 10
   }
 })
