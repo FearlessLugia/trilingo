@@ -24,11 +24,10 @@ const synsetStackSlice = createSlice({
       }
       
       state.entities[s.id] = s
-      console.log('state.synsetStack', state.synsetStack)
     },
     
-    popSynset: (state, action: PayloadAction<Synset>) => {
-      const { id } = action.payload
+    popSynset: (state, action: PayloadAction<string>) => {
+      const id = action.payload
       
       if (state.synsetStack[state.synsetStack.length - 1] === id) {
         state.synsetStack.pop()
@@ -36,10 +35,6 @@ const synsetStackSlice = createSlice({
         const idx = state.synsetStack.indexOf(id)
         if (idx !== -1) state.synsetStack.splice(idx, 1)
       }
-      
-      delete state.entities[id]
-      
-      console.log('state.synsetStack.pop', state.synsetStack)
     },
     
     resetSynsetStack: (state) => {

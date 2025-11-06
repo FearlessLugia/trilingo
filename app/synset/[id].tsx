@@ -1,11 +1,12 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
-import { useRouter, useLocalSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router'
 import { globalStyles } from '../../styles/globalStyles'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Gloss from '../../components/Gloss'
 import LemmaGroup from '../../components/LemmaGroup'
-import { useSelector } from 'react-redux'
-import { selectSynsetById } from '../../features/synsetStack/synsetStackSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { popSynset, selectSynsetById } from '../../features/synsetStack/synsetStackSlice'
+import { AppDispatch } from '../../store/store'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
   <Text>{synsetId}</Text>
@@ -13,12 +14,18 @@ const SynsetId = ({ synsetId }: { synsetId: string }) => (
 
 const SynsetScreenHeader = ({ synsetId }: { synsetId: string }) => {
   const router = useRouter()
+  const dispatch: AppDispatch = useDispatch()
   
   return (
     <View style={styles.header}>
       <Pressable
         style={styles.backButton}
-        onPress={() => router.back()}
+        onPress={
+          () => {
+            dispatch(popSynset(synsetId))
+            router.back()
+          }
+        }
       >
         <Ionicons name='chevron-back-sharp' size={24} color='black' />
       </Pressable>
