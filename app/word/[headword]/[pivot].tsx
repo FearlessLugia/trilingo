@@ -8,6 +8,9 @@ import { colors } from '../../../constants/colors'
 import { Pivot, SynsetsRequest } from '../../../types'
 import useSynsets from '../../../hooks/useSynsets'
 import { underscoreToSpace } from '../../../utils/stringUtils'
+import { AppDispatch } from '../../../store/store'
+import { useDispatch } from 'react-redux'
+import { addSaved } from '../../../features/saved/savedSlice'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{underscoreToSpace(headword)}</Text>
@@ -27,9 +30,15 @@ const PivotDisplay = ({ pivot }: { pivot: string }) => {
 
 const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot }) => {
   const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
   
   const toggleStar = () => {
-    // TODO
+    const newRecordEntry = {
+      headword,
+      pivot
+    }
+    
+    dispatch(addSaved(newRecordEntry))
   }
   
   return (
