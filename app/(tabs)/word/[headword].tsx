@@ -1,17 +1,18 @@
 import { FlatList, StyleSheet, View, Text, Pressable } from 'react-native'
 import ItemSeparator from '../../../components/ItemSeparator'
 import SynsetCard from '../../../components/SynsetCard'
-import { data } from '../../../data'
 import { globalStyles } from '../../../styles/globalStyles'
 import { useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { colors } from '../../../constants/colors'
+import { Pivot, SynsetsRequest } from '../../../types'
+import useSynsets from '../../../hooks/useSynsets'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{headword}</Text>
 )
 
-const Pivot = ({ pivot }: { pivot: string }) => {
+const PivotDisplay = ({ pivot }: { pivot: string }) => {
   const color = colors[pivot as keyof typeof colors]
   
   return (
@@ -23,7 +24,7 @@ const Pivot = ({ pivot }: { pivot: string }) => {
   )
 }
 
-const WordScreenHeader = () => {
+const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot }) => {
   const router = useRouter()
   
   const toggleStar = () => {
@@ -40,8 +41,8 @@ const WordScreenHeader = () => {
       </Pressable>
       
       <View style={styles.leftContainer}>
-        <HeaderWord headword={data.headword} />
-        <Pivot pivot={data.pivot} />
+        <HeaderWord headword={headword} />
+        <PivotDisplay pivot={pivot} />
       </View>
       
       <Pressable
@@ -55,14 +56,28 @@ const WordScreenHeader = () => {
 }
 
 const WordScreen = () => {
+  const requestBody: SynsetsRequest = { query: 'bank', pivot: 'eng' }
+  const { data } = useSynsets(requestBody)
+  
+  if (!data) {
+    return (<View style={globalStyles.container}>
+        <Text>Loading...</Text>
+      </View>
+    )
+  }
+  
   return (
     <View style={globalStyles.container}>
       <FlatList
         data={data.synsets}
-        renderItem={({ item }) => <SynsetCard synset={item} />}
         keyExtractor={({ id }) => id}
-        ListHeaderComponent={() => <WordScreenHeader />}
+        renderItem={({ item }) =>
+          <SynsetCard synset={item} />
+        }
         ItemSeparatorComponent={ItemSeparator}
+        ListHeaderComponent={() =>
+          <WordScreenHeader headword={data.headword} pivot={data.pivot} />
+        }
       />
     </View>
   )
