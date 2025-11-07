@@ -1,8 +1,11 @@
 import { Alert, Button, StyleSheet, Text, View } from 'react-native'
-import { globalStyles } from '../../styles/globalStyles'
+import { globalStyles } from '@/styles/globalStyles'
 import { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
-import { registerForNotifications, scheduleNotification } from '../../utils/notifications'
+import { registerForNotifications, scheduleNotification } from '@/utils/notifications'
+import { clearHistory } from '@/features/history/historySlice'
+import { AppDispatch } from '@/store/store'
+import { useDispatch } from 'react-redux'
 
 const NotificationSetup = () => {
   useEffect(() => {
@@ -17,6 +20,30 @@ const NotificationSetup = () => {
     <View style={styles.container}>
       <View style={{ height: 16 }} />
       <Button title='test' onPress={onTest} />
+    </View>
+  )
+}
+
+const ClearHistory = () => {
+  const dispatch: AppDispatch = useDispatch()
+  
+  const handleClearHistory = () => {
+    Alert.alert('Confirm', 'Are you sure you want to clear your history? This action cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'OK', onPress: () => {
+            dispatch(clearHistory())
+            Alert.alert('History Cleared', 'Your history has been successfully cleared.')
+          }
+        }
+      ]
+    )
+  }
+  
+  return (
+    <View>
+      <Button title='Clear Search History' onPress={handleClearHistory} />
     </View>
   )
 }
@@ -44,6 +71,8 @@ const MeScreen = () => {
       <Text>Hello, My name!</Text>
       
       <NotificationSetup />
+      
+      <ClearHistory />
       
       <SignOut />
     </View>
