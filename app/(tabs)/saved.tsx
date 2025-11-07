@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { globalStyles } from '../../styles/globalStyles'
+import { globalStyles } from '@/styles/globalStyles'
 import { useSelector } from 'react-redux'
-import { selectSaved } from '../../features/saved/savedSlice'
-import RecordList from '../../components/RecordList'
+import { selectSaved } from '@/features/saved/savedSlice'
+import RecordList from '@/components/RecordList'
 
 const FilterBar = () => {
   return (

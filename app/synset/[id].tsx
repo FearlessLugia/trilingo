@@ -1,12 +1,12 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
-import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router'
-import { globalStyles } from '../../styles/globalStyles'
+import { useRouter, useLocalSearchParams } from 'expo-router'
+import { globalStyles } from '@/styles/globalStyles'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import Gloss from '../../components/Gloss'
-import LemmaGroup from '../../components/LemmaGroup'
+import Gloss from '@/components/Gloss'
+import LemmaGroup from '@/components/LemmaGroup'
 import { useDispatch, useSelector } from 'react-redux'
-import { popSynset, selectSynsetById } from '../../features/synsetStack/synsetStackSlice'
-import { AppDispatch } from '../../store/store'
+import { popSynset, selectSynsetById } from '@/features/synsetStack/synsetStackSlice'
+import { AppDispatch } from '@/store/store'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
   <Text>{synsetId}</Text>

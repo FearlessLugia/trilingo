@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { saveHistory } from '../../storage/historyStorage'
-import { RecordEntry } from '../../types'
-import { RootState } from '../../store/store'
+import { saveHistory } from '@/storage/historyStorage'
+import { RecordEntry } from '@/types'
+import { RootState } from '@/store/store'
 
 interface HistoryState {
   history: RecordEntry[];

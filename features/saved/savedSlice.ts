@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { saveSaved } from '../../storage/savedStorage'
-import { RecordEntry } from '../../types'
-import { RootState } from '../../store/store'
+import { saveSaved } from '@/storage/savedStorage'
+import { RecordEntry } from '@/types'
+import { RootState } from '@/store/store'
 
 interface SavedState {
   saved: RecordEntry[];

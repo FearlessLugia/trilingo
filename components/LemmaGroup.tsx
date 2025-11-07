@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import { Lemmas } from '../types'
+import { Lemmas } from '@/types'
 import LemmaPerLanguage from './LemmaPerLanguage'
 
 const LemmaGroup = ({ lemmas }: { lemmas: Lemmas }) => {

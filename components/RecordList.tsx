@@ -1,5 +1,5 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import { RecordEntry } from '../types'
+import { RecordEntry } from '@/types'
 import { useRouter } from 'expo-router'
 
 const RecordList = ({ recordList }: { recordList: RecordEntry[] }) => {

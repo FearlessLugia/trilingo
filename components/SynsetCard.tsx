@@ -1,11 +1,11 @@
-import { Synset } from '../types'
+import { Synset } from '@/types'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import Gloss from './Gloss'
 import LemmaGroup from './LemmaGroup'
 import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../store/store'
-import { pushSynset } from '../features/synsetStack/synsetStackSlice'
+import { AppDispatch } from '@/store/store'
+import { pushSynset } from '@/features/synsetStack/synsetStackSlice'
 
 const styles = StyleSheet.create({
   container: {

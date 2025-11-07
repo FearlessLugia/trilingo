@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { RecordEntry } from '../types'
+import { RecordEntry } from '@/types'
 
 const SAVED_STORAGE_KEY = '@Trilingo_saved'
 

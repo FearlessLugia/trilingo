@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { SynsetsRequest, SynsetsResponse } from '../types'
+import { SynsetsRequest, SynsetsResponse } from '@/types'
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL
 

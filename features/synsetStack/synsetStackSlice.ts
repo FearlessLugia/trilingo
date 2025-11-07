@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { Synset } from '../../types'
-import { RootState } from '../../store/store'
+import { Synset } from '@/types'
+import { RootState } from '@/store/store'
 
 interface SynsetStackState {
   synsetStack: string[];
