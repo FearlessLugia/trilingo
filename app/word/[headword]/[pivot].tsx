@@ -4,7 +4,6 @@ import SynsetCard from '@/components/SynsetCard'
 import { globalStyles } from '@/styles/globalStyles'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { colors } from '@/constants/colors'
 import { Pivot, SynsetsRequest } from '@/types'
 import useSynsets from '@/hooks/useSynsets'
 import { underscoreToSpace } from '@/utils/stringUtils'
@@ -14,24 +13,13 @@ import { addSaved, deleteSaved, selectSaved } from '@/features/saved/savedSlice'
 import { registerForNotifications, scheduleNotification } from '@/utils/notifications'
 import { refreshHistory } from '@/features/history/historySlice'
 import { useEffect } from 'react'
+import { PivotBadge } from '@/components/PivotBadge'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text style={globalStyles.headerText}>
     {underscoreToSpace(headword)}
   </Text>
 )
-
-const PivotDisplay = ({ pivot }: { pivot: string }) => {
-  const color = colors[pivot as keyof typeof colors]
-  
-  return (
-    <View style={[styles.pivot, { borderColor: color }]}>
-      <Text style={[styles.pivotText, { color: color }]}>
-        {pivot.toUpperCase()}
-      </Text>
-    </View>
-  )
-}
 
 const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot }) => {
   const router = useRouter()
@@ -63,7 +51,7 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
       
       <View style={styles.leftContainer}>
         <HeaderWord headword={headword} />
-        <PivotDisplay pivot={pivot} />
+        <PivotBadge pivot={pivot} />
       </View>
       
       <Pressable onPress={toggleStar}>
@@ -135,18 +123,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'baseline',
     gap: 10
-  },
-  
-  pivot: {
-    borderWidth: 1,
-    padding: 2,
-    borderRadius: 3,
-    marginLeft: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  
-  pivotText: {
-    fontWeight: '500'
   }
 })
