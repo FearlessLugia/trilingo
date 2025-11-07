@@ -12,7 +12,7 @@ const FilterBar = () => {
   )
 }
 
-const Saved = () => {
+const SavedScreen = () => {
   const saved = useSelector(selectSaved)
   
   return (
@@ -24,7 +24,7 @@ const Saved = () => {
   )
 }
 
-export default Saved
+export default SavedScreen
 
 const styles = StyleSheet.create({
   filterBar: {},

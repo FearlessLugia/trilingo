@@ -48,7 +48,7 @@ const SearchBar = () => {
   )
 }
 
-const Main = () => {
+const HomeScreen = () => {
   const history = useSelector(selectHistory)
   
   return (
@@ -60,7 +60,7 @@ const Main = () => {
   )
 }
 
-export default Main
+export default HomeScreen
 
 const styles = StyleSheet.create({
   searchBar: {},
