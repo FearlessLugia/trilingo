@@ -12,6 +12,8 @@ import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSaved, deleteSaved, selectSaved } from '@/features/saved/savedSlice'
 import { registerForNotifications, scheduleNotification } from '@/utils/notifications'
+import { refreshHistory } from '@/features/history/historySlice'
+import { useEffect } from 'react'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{underscoreToSpace(headword)}</Text>
@@ -70,9 +72,20 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
 }
 
 const WordScreen = () => {
-  const { headword, pivot = 'eng' } = useLocalSearchParams()
+  const { headword, pivot } = useLocalSearchParams()
+  const dispatch = useDispatch<AppDispatch>()
+  
   const requestBody: SynsetsRequest = { query: headword as string, pivot: pivot as Pivot }
   const { data } = useSynsets(requestBody)
+  
+  useEffect(() => {
+    const newRecordEntry = {
+      headword: headword as string,
+      pivot: pivot as Pivot
+    }
+    
+    dispatch(refreshHistory(newRecordEntry))
+  }, [])
   
   if (!data) {
     return (

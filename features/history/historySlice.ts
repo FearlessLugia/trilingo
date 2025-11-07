@@ -17,11 +17,20 @@ const historySlice = createSlice({
   name: 'history',
   initialState,
   reducers: {
-    addHistory: (state, action: PayloadAction<Omit<RecordEntry, 'timestamp'>>) => {
+    refreshHistory: (state, action: PayloadAction<Omit<RecordEntry, 'timestamp'>>) => {
       const timestamp = Date.now()
-      console.log('timestamp', timestamp)
-      const newHistory: RecordEntry = { timestamp, ...action.payload }
-      state.history.push(newHistory)
+      const { headword, pivot } = action.payload
+      
+      const index = state.history.findIndex(h =>
+        h.headword === headword && h.pivot === pivot)
+      
+      if (index === -1) {
+        const newHistory: RecordEntry = { timestamp, ...action.payload }
+        state.history.push(newHistory)
+      } else {
+        state.history[index].timestamp = timestamp
+      }
+      
       saveHistory(state.history)
     },
     
@@ -43,7 +52,7 @@ const historySlice = createSlice({
   }
 })
 
-export const { addHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
+export const { refreshHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
 
 export const selectHistory = (state: RootState) =>
   state.history.history
