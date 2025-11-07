@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { colors } from '../constants/colors'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
@@ -9,8 +9,11 @@ import { setHistory } from '../features/history/historySlice'
 import { useEffect } from 'react'
 import { loadSaved } from '../storage/savedStorage'
 import { setSaved } from '../features/saved/savedSlice'
+import * as Notifications from 'expo-notifications'
 
 export default function RootLayout() {
+  const router = useRouter()
+  
   useEffect(() => {
     loadHistory().then((history) => {
       store.dispatch(setHistory(history))
@@ -20,6 +23,14 @@ export default function RootLayout() {
       store.dispatch(setSaved(saved))
     })
   }, [])
+  
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(() => {
+      router.navigate('/saved')
+    })
+    
+    return () => subscription.remove()
+  }, [router])
   
   return (
     <Provider store={store}>

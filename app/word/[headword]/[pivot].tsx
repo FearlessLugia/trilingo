@@ -11,6 +11,7 @@ import { underscoreToSpace } from '../../../utils/stringUtils'
 import { AppDispatch } from '../../../store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSaved, deleteSaved, selectSaved } from '../../../features/saved/savedSlice'
+import { registerForNotifications, scheduleNotification } from '../../../utils/notifications'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text>{underscoreToSpace(headword)}</Text>
@@ -41,6 +42,7 @@ const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot 
   const toggleStar = () => {
     if (!isSaved) {
       dispatch(addSaved({ headword, pivot }))
+      registerForNotifications()
     } else {
       dispatch(deleteSaved({ headword, pivot }))
     }

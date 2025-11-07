@@ -1,10 +1,22 @@
-import { Text, View } from 'react-native'
+import { Alert, Button, StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from '../../styles/globalStyles'
+import { useEffect } from 'react'
+import * as Notifications from 'expo-notifications'
+import { registerForNotifications, scheduleNotification } from '../../utils/notifications'
 
 const NotificationSetup = () => {
+  useEffect(() => {
+    registerForNotifications()
+  }, [])
+  
+  const onTest = async () => {
+    await scheduleNotification()
+  }
+  
   return (
-    <View>
-      <Text>Notification Setup</Text>
+    <View style={styles.container}>
+      <View style={{ height: 16 }} />
+      <Button title='test' onPress={onTest} />
     </View>
   )
 }
@@ -17,10 +29,19 @@ const SignOut = () => {
   )
 }
 
-const Me = () => {
+const MeScreen = () => {
+  useEffect(() => {
+    registerForNotifications()
+  }, [])
+  
+  async function registerForNotifications() {
+    const { status } = await Notifications.requestPermissionsAsync()
+    console.log('status', status)
+  }
+  
   return (
     <View style={globalStyles.container}>
-      <Text>My name</Text>
+      <Text>Hello, My name!</Text>
       
       <NotificationSetup />
       
@@ -29,4 +50,8 @@ const Me = () => {
   )
 }
 
-export default Me
+export default MeScreen
+
+const styles = StyleSheet.create({
+  container: {}
+})
