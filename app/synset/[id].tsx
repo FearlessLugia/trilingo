@@ -10,7 +10,9 @@ import { AppDispatch } from '@/store/store'
 import ItemSeparator from '@/components/ItemSeparator'
 
 const SynsetId = ({ synsetId }: { synsetId: string }) => (
-  <Text>{synsetId}</Text>
+  <Text style={globalStyles.headerText}>
+    {synsetId}
+  </Text>
 )
 
 const SynsetScreenHeader = ({ synsetId }: { synsetId: string }) => {
@@ -21,6 +23,7 @@ const SynsetScreenHeader = ({ synsetId }: { synsetId: string }) => {
     dispatch(popSynset(synsetId))
     router.back()
   }
+  
   return (
     <View style={styles.header}>
       <Pressable style={styles.backButton} onPress={handleBack}>

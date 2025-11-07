@@ -16,7 +16,9 @@ import { refreshHistory } from '@/features/history/historySlice'
 import { useEffect } from 'react'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
-  <Text>{underscoreToSpace(headword)}</Text>
+  <Text style={globalStyles.headerText}>
+    {underscoreToSpace(headword)}
+  </Text>
 )
 
 const PivotDisplay = ({ pivot }: { pivot: string }) => {
@@ -131,15 +133,20 @@ const styles = StyleSheet.create({
   leftContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'baseline',
     gap: 10
   },
   
   pivot: {
     borderWidth: 1,
     padding: 2,
-    borderRadius: 3
+    borderRadius: 3,
+    marginLeft: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   
-  pivotText: {}
+  pivotText: {
+    fontWeight: '500'
+  }
 })

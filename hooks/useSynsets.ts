@@ -25,7 +25,6 @@ const useSynsets = (body: SynsetsRequest) => {
   
   useEffect(() => {
     fetchSynsets()
-    console.log('   inside use effect change')
   }, [body.query, body.pivot])
   
   return { data, loading, refetch: fetchSynsets }

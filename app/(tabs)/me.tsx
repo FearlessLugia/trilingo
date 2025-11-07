@@ -1,4 +1,4 @@
-import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
 import { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
