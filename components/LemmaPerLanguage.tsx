@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { colors } from '@/constants/colors'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Pivot } from '@/types'
@@ -37,17 +37,9 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
 
 export default LemmaPerLanguage
 
-const baseButtonStyle: ViewStyle = {
-  justifyContent: 'center',
-  borderRadius: 5,
-  marginTop: 3,
-  marginHorizontal: 2,
-  alignSelf: 'flex-start'
-}
-
 const styles = StyleSheet.create({
   lemma: {
-    width: 100,
+    width: '33%',
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginLeft: 1,
@@ -55,7 +47,11 @@ const styles = StyleSheet.create({
   },
   
   button: {
-    ...baseButtonStyle
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginTop: 3,
+    marginHorizontal: 2,
+    alignSelf: 'flex-start'
   },
   
   buttonText: {
