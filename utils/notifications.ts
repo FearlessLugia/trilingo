@@ -14,6 +14,17 @@ export async function registerForNotifications() {
   console.log('status', status)
 }
 
+export async function sendNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: { title: 'Time to review', body: '12 saved words waiting' },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: 5
+    }
+  })
+}
+
+
 export async function scheduleNotification() {
   await Notifications.scheduleNotificationAsync({
     content: { title: 'Time to review', body: '12 saved words waiting' },
