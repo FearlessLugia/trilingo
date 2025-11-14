@@ -57,9 +57,26 @@ const HomeScreen = () => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
-  searchBar: {},
+  searchBar: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
+    marginBottom: 6
+  },
   
-  searchBarInput: {},
-  
-  history: {}
+  searchBarInput: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    fontSize: 16,
+    
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    
+    borderWidth: 1,
+    borderColor: '#e5e5e5'
+  }
 })
