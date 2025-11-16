@@ -19,7 +19,6 @@ const savedSlice = createSlice({
   reducers: {
     addSaved: (state, action: PayloadAction<Omit<RecordEntry, 'timestamp'>>) => {
       const timestamp = Date.now()
-      console.log('timestamp', timestamp)
       const newSaved: RecordEntry = { timestamp, ...action.payload }
       state.saved.push(newSaved)
       saveSaved(state.saved)
@@ -46,6 +45,6 @@ const savedSlice = createSlice({
 export const { addSaved, deleteSaved, clearSaved, setSaved } = savedSlice.actions
 
 export const selectSaved = (state: RootState) =>
-  state.saved.saved
+  state.saved.saved.slice().sort((a, b) => b.timestamp - a.timestamp)
 
 export default savedSlice.reducer

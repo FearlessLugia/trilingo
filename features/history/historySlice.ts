@@ -55,6 +55,6 @@ const historySlice = createSlice({
 export const { refreshHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
 
 export const selectHistory = (state: RootState) =>
-  state.history.history
+  state.history.history.slice().sort((a, b) => b.timestamp - a.timestamp)
 
 export default historySlice.reducer
