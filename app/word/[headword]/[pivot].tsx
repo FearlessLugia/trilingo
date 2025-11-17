@@ -4,7 +4,7 @@ import SynsetCard from '@/components/SynsetCard'
 import { globalStyles } from '@/styles/globalStyles'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { Pivot, SynsetsRequest } from '@/types'
+import { Pivot, Synset, SynsetsRequest } from '@/types'
 import useSynsets from '@/hooks/useSynsets'
 import { underscoreToSpace } from '@/utils/stringUtils'
 import { AppDispatch } from '@/store/store'
@@ -21,19 +21,23 @@ const HeaderWord = ({ headword }: { headword: string }) => (
   </Text>
 )
 
-const WordScreenHeader = ({ headword, pivot }: { headword: string, pivot: Pivot }) => {
+const WordScreenHeader = ({ headword, pivot, synsets }: { headword: string, pivot: Pivot, synsets?: Synset[] }) => {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   
   const saved = useSelector(selectSaved)
   
-  const isSaved = saved.some((it: { headword: string; pivot: string }) =>
+  const isSaved = saved.some((it: { headword: string, pivot: string }) =>
     it.headword.toLowerCase() === headword.toLowerCase() && it.pivot === pivot
   )
   
   const toggleStar = () => {
     if (!isSaved) {
-      dispatch(addSaved({ headword, pivot }))
+      dispatch(addSaved({
+        headword,
+        pivot,
+        synsets: synsets ?? []
+      }))
       registerForNotifications()
     } else {
       dispatch(deleteSaved({ headword, pivot }))
@@ -65,8 +69,17 @@ const WordScreen = () => {
   const { headword, pivot } = useLocalSearchParams()
   const dispatch = useDispatch<AppDispatch>()
   
+  const saved = useSelector(selectSaved)
+  const cached = saved.find(
+    (entry) =>
+      entry.headword === headword &&
+      entry.pivot === pivot &&
+      entry.synsets && entry.synsets.length > 0
+  )
+  
   const requestBody: SynsetsRequest = { query: headword as string, pivot: pivot as Pivot }
   const { data } = useSynsets(requestBody)
+  const finalSynsets = cached?.synsets ?? data?.synsets
   
   useEffect(() => {
     const newRecordEntry = {
@@ -77,7 +90,7 @@ const WordScreen = () => {
     dispatch(refreshHistory(newRecordEntry))
   }, [])
   
-  if (!data) {
+  if (!finalSynsets) {
     return (
       <View style={globalStyles.container}>
         <Text>Loading...</Text>
@@ -88,14 +101,14 @@ const WordScreen = () => {
   return (
     <View style={globalStyles.container}>
       <FlatList
-        data={data.synsets}
+        data={finalSynsets}
         keyExtractor={({ id }) => id}
         renderItem={({ item }) =>
           <SynsetCard synset={item} />
         }
         ItemSeparatorComponent={ItemSeparator}
         ListHeaderComponent={() =>
-          <WordScreenHeader headword={data.headword} pivot={data.pivot} />
+          <WordScreenHeader headword={headword as string} pivot={pivot as Pivot} synsets={finalSynsets} />
         }
       />
     </View>

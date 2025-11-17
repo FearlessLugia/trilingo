@@ -33,4 +33,5 @@ export type RecordEntry = {
   headword: string
   pivot: Pivot
   timestamp: number
+  synsets?: Synset[]
 }
