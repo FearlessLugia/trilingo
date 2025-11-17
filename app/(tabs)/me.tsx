@@ -6,6 +6,7 @@ import { registerForNotifications, scheduleNotification, sendNotification } from
 import { clearHistory } from '@/features/history/historySlice'
 import { AppDispatch } from '@/store/store'
 import { useDispatch } from 'react-redux'
+import { clearSaved } from '@/features/saved/savedSlice'
 
 const NotificationSetup = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const NotificationSetup = () => {
   
   return (
     <Pressable style={styles.button} onPress={onTest}>
-      <Text style={styles.buttonText}>Send me an example notification</Text>
+      <Text style={styles.buttonText}>Send me an Example Notification</Text>
     </Pressable>
   )
 }
@@ -46,6 +47,31 @@ const ClearHistory = () => {
     </Pressable>
   )
 }
+
+const ClearSaved = () => {
+  const dispatch: AppDispatch = useDispatch()
+  
+  const handleClearSaved = () => {
+    Alert.alert('Confirm', 'Are you sure you want to clear your saved words? This action cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'OK', onPress: () => {
+            dispatch(clearSaved())
+            Alert.alert('Saved Words Cleared', 'Your saved words has been successfully cleared.')
+          }
+        }
+      ]
+    )
+  }
+  
+  return (
+    <Pressable style={styles.button} onPress={handleClearSaved}>
+      <Text style={styles.buttonText}>Clear all Saved Words</Text>
+    </Pressable>
+  )
+}
+
 
 const SignOut = () => {
   const handleSignOut = () => {
@@ -76,6 +102,7 @@ const MeScreen = () => {
         <NotificationSetup />
         
         <ClearHistory />
+        <ClearSaved />
         
         <SignOut />
       </View>
