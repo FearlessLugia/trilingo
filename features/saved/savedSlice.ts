@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { saveSaved } from '@/storage/savedStorage'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
+import { createSelector } from '@reduxjs/toolkit'
 
 interface SavedState {
   saved: RecordEntry[];
@@ -44,7 +45,12 @@ const savedSlice = createSlice({
 
 export const { addSaved, deleteSaved, clearSaved, setSaved } = savedSlice.actions
 
-export const selectSaved = (state: RootState) =>
-  state.saved.saved.slice().sort((a, b) => b.timestamp - a.timestamp)
+const selectSavedState = (state: RootState) => state.saved.saved
 
+export const selectSaved = createSelector(
+  [selectSavedState],
+  (saved) => {
+    return [...saved].sort((a, b) => b.timestamp - a.timestamp)
+  }
+)
 export default savedSlice.reducer

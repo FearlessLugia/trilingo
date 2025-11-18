@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { saveHistory } from '@/storage/historyStorage'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
+import { createSelector } from '@reduxjs/toolkit'
 
 interface HistoryState {
   history: RecordEntry[];
@@ -54,7 +55,13 @@ const historySlice = createSlice({
 
 export const { refreshHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
 
-export const selectHistory = (state: RootState) =>
-  state.history.history.slice().sort((a, b) => b.timestamp - a.timestamp)
+const selectHistoryState = (state: RootState) => state.history.history
+
+export const selectHistory = createSelector(
+  [selectHistoryState],
+  (history) => {
+    return [...history].sort((a, b) => b.timestamp - a.timestamp)
+  }
+)
 
 export default historySlice.reducer
