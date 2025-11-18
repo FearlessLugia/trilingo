@@ -11,10 +11,10 @@ export const colors = {
   dangerPressed: "#a71d31",
   
   textSecondary: '#586069',
-  mainBackground: '#e1e4e8',
+  mainBackground: '#67af45',
   error: '#d73a4a',
   
-  eng: '#17a2b8',
-  fra: '#28a745',
-  spa: '#17a2b8'
+  eng: '#1593c4',
+  fra: '#4169E1',
+  spa: '#f57c13'
 };
