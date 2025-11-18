@@ -72,7 +72,6 @@ const ClearSaved = () => {
   )
 }
 
-
 const SignOut = () => {
   const handleSignOut = () => {
   }
@@ -97,7 +96,7 @@ const MeScreen = () => {
   return (
     <View style={globalStyles.container}>
       <View style={styles.container}>
-        <Text>Hello, My name!</Text>
+        <Text style={styles.headerText}>Hello, User!</Text>
         
         <NotificationSetup />
         
@@ -116,6 +115,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     gap: 5
+  },
+  
+  headerText: {
+    fontSize: 24,
+    padding: 20,
+    fontWeight: 'bold'
   },
   
   button: {
