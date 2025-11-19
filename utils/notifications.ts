@@ -14,9 +14,11 @@ export async function registerForNotifications() {
   console.log('status', status)
 }
 
-export async function sendNotification() {
+export async function sendNotification(
+  savedCountToday: number
+) {
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Time to review', body: '12 saved words waiting' },
+    content: { title: 'Time to review', body: `${savedCountToday} saved words waiting` },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: 5
@@ -25,13 +27,17 @@ export async function sendNotification() {
 }
 
 
-export async function scheduleNotification() {
+export async function scheduleDailyReminder(
+  hour: number,
+  minute: number,
+  savedCountToday: number
+) {
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Time to review', body: '12 saved words waiting' },
+    content: { title: 'Time to review', body: `${savedCountToday} saved words waiting` },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 20,
-      minute: 0
+      hour: hour,
+      minute: minute
     }
   })
 }
