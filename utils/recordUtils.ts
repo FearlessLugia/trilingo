@@ -9,7 +9,14 @@ export const groupByDate = (items: RecordEntry[]): DateSection[] => {
   const map: Record<string, RecordEntry[]> = {}
   
   items.forEach((item) => {
-    const date = new Date(item.timestamp).toISOString().split('T')[0]
+    const d = new Date(item.timestamp)
+    const date = `${
+      d.getFullYear()
+    }-${
+      String(d.getMonth() + 1).padStart(2, '0')
+    }-${
+      String(d.getDate()).padStart(2, '0')
+    }`
     
     if (!map[date]) {
       map[date] = []
