@@ -9,16 +9,20 @@ Notifications.setNotificationHandler({
   })
 })
 
-export async function registerForNotifications() {
+export const registerForNotifications = async () => {
   const { status } = await Notifications.requestPermissionsAsync()
   console.log('status', status)
+  return status
 }
 
-export async function sendNotification(
-  savedCountToday: number
-) {
+export const sendTestNotification = async (
+  savedCount: number
+) => {
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Time to review', body: `${savedCountToday} saved words waiting` },
+    content: {
+      title: 'Time to review',
+      body: `${savedCount} saved words waiting`
+    },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: 5
@@ -26,18 +30,24 @@ export async function sendNotification(
   })
 }
 
-
-export async function scheduleDailyReminder(
+export const scheduleDailyReminder = async (
   hour: number,
   minute: number,
-  savedCountToday: number
-) {
+  savedCount: number
+) => {
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Time to review', body: `${savedCountToday} saved words waiting` },
+    content: {
+      title: 'Time to review',
+      body: `${savedCount} saved words waiting`
+    },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour: hour,
       minute: minute
     }
   })
+}
+
+export const cancelAllNotifications = async () => {
+  await Notifications.cancelAllScheduledNotificationsAsync()
 }
