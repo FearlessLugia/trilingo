@@ -18,10 +18,20 @@ export const registerForNotifications = async () => {
 export const sendTestNotification = async (
   savedCount: number
 ) => {
+  let body: string
+  
+  if (savedCount === 0) {
+    body = 'You have no saved words today. Add some today!'
+  } else if (savedCount === 1) {
+    body = '1 saved word waiting for you'
+  } else {
+    body = `${savedCount} saved words waiting for you`
+  }
+  
   await Notifications.scheduleNotificationAsync({
     content: {
       title: 'Time to review',
-      body: `${savedCount} saved words waiting`
+      body
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
@@ -35,6 +45,16 @@ export const scheduleDailyReminder = async (
   minute: number,
   savedCount: number
 ) => {
+  let body: string
+  
+  if (savedCount === 0) {
+    body = 'You have no saved words today. Add some today!'
+  } else if (savedCount === 1) {
+    body = '1 saved word waiting for you'
+  } else {
+    body = `${savedCount} saved words waiting for you`
+  }
+  
   await Notifications.scheduleNotificationAsync({
     content: {
       title: 'Time to review',
