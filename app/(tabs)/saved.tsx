@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { selectSaved } from '@/features/saved/savedSlice'
 import RecordList from '@/components/RecordList'
 import { useState } from 'react'
-import { groupByDate } from '@/utils/recordUtils'
 
 const FilterBar = ({ filter, setFilter }: {
   filter: string, setFilter: (value: string) => void

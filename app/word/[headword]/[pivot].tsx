@@ -10,7 +10,6 @@ import { underscoreToSpace } from '@/utils/stringUtils'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSaved, deleteSaved, selectSaved } from '@/features/saved/savedSlice'
-import { registerForNotifications, scheduleDailyReminder } from '@/utils/notifications'
 import { refreshHistory } from '@/features/history/historySlice'
 import { useEffect } from 'react'
 import { PivotBadge } from '@/components/PivotBadge'
@@ -38,7 +37,6 @@ const WordScreenHeader = ({ headword, pivot, synsets }: { headword: string, pivo
         pivot,
         synsets: synsets ?? []
       }))
-      registerForNotifications()
     } else {
       dispatch(deleteSaved({ headword, pivot }))
     }

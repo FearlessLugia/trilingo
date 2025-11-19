@@ -1,12 +1,17 @@
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
-import { useEffect } from 'react'
-import * as Notifications from 'expo-notifications'
-import { registerForNotifications, scheduleDailyReminder, sendNotification } from '@/utils/notifications'
+import { useEffect, useState } from 'react'
+import {
+  cancelAllNotifications,
+  registerForNotifications,
+  scheduleDailyReminder,
+  sendTestNotification
+} from '@/utils/notifications'
 import { clearHistory } from '@/features/history/historySlice'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearSaved, selectSaved } from '@/features/saved/savedSlice'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -24,43 +29,46 @@ const NotificationSetup = () => {
     registerForNotifications()
   }, [])
   
+  const [enabled, setEnabled] = useState(true)
+  const [time, setTime] = useState(() => new Date(new Date().setHours(20, 0, 0, 0)))
+  
   const saved = useSelector(selectSaved)
+  const todaySavedCount = saved.filter((entry) => isToday(entry.timestamp)).length
   
-  const todaySavedCount = saved.filter((entry: any) =>
-    isToday(entry.timestamp)
-  ).length
-  
-  const onTest = async () => {
-    await sendNotification(todaySavedCount)
-  }
+  useEffect(() => {
+    if (enabled) {
+      scheduleDailyReminder(time.getHours(), time.getMinutes(), todaySavedCount)
+    } else {
+      cancelAllNotifications()
+    }
+  }, [enabled, time, todaySavedCount])
   
   return (
-    <Pressable style={styles.button} onPress={onTest}>
-      <Text style={styles.buttonText}>Send me an Example Notification</Text>
-    </Pressable>
-  )
-}
-
-const DailyReminder = () => {
-  const saved = useSelector(selectSaved)
-  
-  const todaySavedCount = saved.filter((entry: any) =>
-    isToday(entry.timestamp)
-  ).length
-  
-  const handleScheduleDaily = async () => {
-    // 这里先写死每天 20:00，你可以改成自己喜欢的时间
-    await scheduleDailyReminder(20, 0, todaySavedCount)
-    Alert.alert(
-      'Reminder set',
-      `Daily reminder at 20:00 with ${todaySavedCount} saved words today.`
-    )
-  }
-  
-  return (
-    <Pressable style={styles.button} onPress={handleScheduleDaily}>
-      <Text style={styles.buttonText}>Schedule Daily Reminder (20:00)</Text>
-    </Pressable>
+    <View style={styles.group}>
+      <View style={[styles.button, styles.notification]}>
+        <Text style={styles.buttonText}>Daily Reminder</Text>
+        
+        <View style={styles.notificationRight}>
+          {enabled && (
+            <View style={styles.timeWrapper}>
+              <DateTimePicker
+                mode='time'
+                value={time}
+                onChange={(_, selected) =>
+                  selected && setTime(selected)
+                }
+              />
+            </View>
+          )}
+          
+          <Switch style={styles.switch} value={enabled} onValueChange={setEnabled} />
+        </View>
+      </View>
+      
+      <Pressable style={styles.button} onPress={() => sendTestNotification(todaySavedCount)}>
+        <Text style={styles.buttonText}>Send an Example Notification</Text>
+      </Pressable>
+    </View>
   )
 }
 
@@ -124,25 +132,17 @@ const SignOut = () => {
 }
 
 const MeScreen = () => {
-  useEffect(() => {
-    registerForNotifications()
-  }, [])
-  
-  async function registerForNotifications() {
-    const { status } = await Notifications.requestPermissionsAsync()
-    console.log('status', status)
-  }
-  
   return (
     <View style={globalStyles.container}>
       <View style={styles.container}>
         <Text style={styles.headerText}>Hello, User!</Text>
         
         <NotificationSetup />
-        <DailyReminder />
         
-        <ClearHistory />
-        <ClearSaved />
+        <View style={styles.group}>
+          <ClearHistory />
+          <ClearSaved />
+        </View>
         
         <SignOut />
       </View>
@@ -155,12 +155,13 @@ export default MeScreen
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    gap: 5
+    gap: 20
   },
   
   headerText: {
     fontSize: 24,
-    padding: 20,
+    paddingLeft: 20,
+    paddingTop: 20,
     fontWeight: 'bold'
   },
   
@@ -172,5 +173,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDD'
   },
   
-  buttonText: {}
+  buttonText: {},
+  
+  group: {
+    gap: 5
+  },
+  
+  notification: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  
+  notificationRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  },
+  
+  timeWrapper: {
+    justifyContent: 'center',
+    height: 15
+  },
+  
+  switch: {
+    transform: [{ scaleX: .65 }, { scaleY: .78 }],
+    height: 20,
+    alignSelf: 'center',
+    marginTop: -5
+  }
 })
