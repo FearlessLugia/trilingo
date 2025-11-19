@@ -52,7 +52,7 @@ const ExampleSentences = ({ examples }: {
         <Text style={styles.exampleText}>"{item}"</Text>
       )}
       ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={() => <Text>Example Sentences</Text>}
+      ListHeaderComponent={() => <Text style={styles.examplesHeader}>Example Sentences</Text>}
     />
   )
 }
@@ -101,5 +101,11 @@ const styles = StyleSheet.create({
     gap: 10
   },
   
-  exampleText: {}
+  exampleText: {},
+  
+  examplesHeader:{
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 5
+  }
 })

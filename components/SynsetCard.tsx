@@ -7,16 +7,6 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store/store'
 import { pushSynset } from '@/features/synsetStack/synsetStackSlice'
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    borderRadius: 5,
-    borderWidth: 1,
-    marginHorizontal: 5,
-    padding: 5
-  }
-})
-
 const SynsetCard = ({ synset }: { synset: Synset }) => {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
@@ -29,7 +19,7 @@ const SynsetCard = ({ synset }: { synset: Synset }) => {
       }}
     >
       <View style={styles.container}>
-        <Text>{synset.id}</Text>
+        <Text style={styles.text}>{synset.id}</Text>
         
         <Gloss gloss={synset.gloss.eng} />
         
@@ -40,3 +30,20 @@ const SynsetCard = ({ synset }: { synset: Synset }) => {
 }
 
 export default SynsetCard
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    borderRadius: 5,
+    borderWidth: 1,
+    marginHorizontal: 5,
+    padding: 5
+  },
+  
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 2,
+    marginBottom: 5
+  }
+})
