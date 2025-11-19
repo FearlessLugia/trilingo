@@ -9,7 +9,9 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
   pivot: Pivot
 }) => {
   const router = useRouter()
-  const { headword: currentHeadword, pivot: currentPivot } = useLocalSearchParams()
+  const { headword: rawHeadword, pivot: currentPivot } = useLocalSearchParams()
+  
+  const currentHeadword = decodeURIComponent(rawHeadword as string)
   
   return (
     <View style={styles.lemma}>
@@ -24,7 +26,7 @@ const LemmaPerLanguage = ({ lemmas, pivot }: {
             
             router.push({
               pathname: '/word/[headword]/[pivot]',
-              params: { headword: lemma, pivot }
+              params: { headword: encodeURIComponent(lemma), pivot }
             })
           }}
         >

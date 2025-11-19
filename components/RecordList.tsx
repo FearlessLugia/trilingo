@@ -3,7 +3,7 @@ import { RecordEntry } from '@/types'
 import { useRouter } from 'expo-router'
 import { PivotBadge } from '@/components/PivotBadge'
 import ItemSeparator from '@/components/ItemSeparator'
-import { underscoreToSpace } from '@/utils/stringUtils'
+import { spaceToUnderscore, underscoreToSpace } from '@/utils/stringUtils'
 import { groupByDate } from '@/utils/recordUtils'
 
 const RecordListEntry = ({ item }: { item: RecordEntry }) => {
@@ -30,7 +30,15 @@ const RecordList = ({ recordList }: { recordList: RecordEntry[] }) => {
       sections={sections}
       keyExtractor={(item) => `${item.headword}|${item.pivot}|${item.timestamp}`}
       renderItem={({ item }) => (
-        <Pressable onPress={() => router.push(`/word/${item.headword}/${item.pivot}`)}>
+        <Pressable onPress={() =>
+          router.push({
+            pathname: '/word/[headword]/[pivot]',
+            params: {
+              headword: spaceToUnderscore(item.headword),
+              pivot: item.pivot
+            }
+          })
+        }>
           <RecordListEntry item={item} />
         </Pressable>
       )}
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
     paddingTop: 18,
     paddingBottom: 6,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   
   recordListEntry: {

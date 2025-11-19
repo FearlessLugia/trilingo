@@ -64,7 +64,9 @@ const WordScreenHeader = ({ headword, pivot, synsets }: { headword: string, pivo
 }
 
 const WordScreen = () => {
-  const { headword, pivot } = useLocalSearchParams()
+  const { headword: rawHeadword, pivot } = useLocalSearchParams()
+  const headword = decodeURIComponent(rawHeadword as string)
+  
   const dispatch = useDispatch<AppDispatch>()
   
   const saved = useSelector(selectSaved)
@@ -75,7 +77,7 @@ const WordScreen = () => {
       entry.synsets && entry.synsets.length > 0
   )
   
-  const requestBody: SynsetsRequest = { query: headword as string, pivot: pivot as Pivot }
+  const requestBody: SynsetsRequest = { query: headword, pivot: pivot as Pivot }
   const { data } = useSynsets(requestBody)
   const finalSynsets = cached?.synsets ?? data?.synsets
   

@@ -14,11 +14,14 @@ const SearchBar = () => {
   const router = useRouter()
   
   const handleSearch = () => {
-    if (/\p{L}/u.test(query.trim())) {
+    const trimmed = query.trim()
+    if (/\p{L}/u.test(trimmed)) {
+      const normalizedHeadword = spaceToUnderscore(trimmed)
+      
       router.push({
         pathname: '/word/[headword]/[pivot]',
         params: {
-          headword: spaceToUnderscore(query.trim()),
+          headword: spaceToUnderscore(normalizedHeadword),
           pivot
         }
       })
@@ -59,7 +62,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
   searchBar: {
     paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingTop: 12
   },
   
   searchBarInput: {
