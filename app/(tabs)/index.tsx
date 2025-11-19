@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
   searchBar: {
     paddingHorizontal: 16,
     paddingTop: 12,
-    paddingBottom: 8,
-    marginBottom: 6
   },
   
   searchBarInput: {

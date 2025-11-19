@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectSaved } from '@/features/saved/savedSlice'
 import RecordList from '@/components/RecordList'
 import { useState } from 'react'
+import { groupByDate } from '@/utils/recordUtils'
 
 const FilterBar = ({ filter, setFilter }: {
   filter: string, setFilter: (value: string) => void
@@ -43,8 +44,6 @@ const styles = StyleSheet.create({
   filterBar: {
     paddingHorizontal: 16,
     paddingTop: 12,
-    paddingBottom: 8,
-    marginBottom: 6
   },
   
   filterInput: {
