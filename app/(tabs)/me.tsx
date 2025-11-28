@@ -13,6 +13,8 @@ import { selectSaved } from '@/features/saved/savedSlice'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { clearHistoryAsync } from '@/features/history/historyThunks'
 import { clearSavedAsync } from '@/features/saved/savedThunks'
+import { supabase } from '@/utils/supabase'
+import { useRouter } from 'expo-router'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -122,7 +124,8 @@ const ClearSaved = () => {
 }
 
 const SignOut = () => {
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut()
   }
   
   return (
@@ -133,6 +136,19 @@ const SignOut = () => {
 }
 
 const MeScreen = () => {
+  const router = useRouter()
+  
+  useEffect(() => {
+    const checkLogin = async () => {
+      const { data } = await supabase.auth.getSession()
+      if (!data.session) {
+        router.replace('/signIn')
+      }
+    }
+    
+    checkLogin()
+  }, [])
+  
   return (
     <View style={globalStyles.container}>
       <View style={styles.container}>
