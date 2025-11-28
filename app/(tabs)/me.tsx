@@ -31,6 +31,7 @@ const isToday = (timestamp: number | undefined) => {
 
 const NotificationSetup = () => {
   const preference = useSelector(selectUserState).preference
+  console.log('preference', preference)
   const enabled = preference.reminderEnabled
   const hour = preference.reminderHour ?? 20
   const minute = preference.reminderMinute ?? 0
@@ -62,9 +63,6 @@ const NotificationSetup = () => {
       return
     }
     
-    const hour = preference.reminderHour ?? time.getHours() ?? 20
-    const minute = preference.reminderMinute ?? time.getMinutes() ?? 0
-    
     dispatch(updatePreferenceAsync({
       reminderEnabled: true,
       reminderHour: hour,
@@ -75,13 +73,18 @@ const NotificationSetup = () => {
     await scheduleDailyReminder(hour, minute, todaySavedCount)
   }
   
-  const handleTimeChange = (_: any, selected: Date | undefined) => {
-    if (selected) {
-      dispatch(updatePreferenceAsync({
-        reminderHour: selected.getHours(),
-        reminderMinute: selected.getMinutes()
-      }))
+  const handleTimeChange = async (event: any, selected: Date | undefined) => {
+    if (event.type !== 'set' || !selected) {
+      return
     }
+    
+    dispatch(updatePreferenceAsync({
+      reminderHour: selected.getHours(),
+      reminderMinute: selected.getMinutes()
+    }))
+    
+    await cancelAllNotifications()
+    await scheduleDailyReminder(hour, minute, todaySavedCount)
   }
   
   return (
@@ -160,7 +163,6 @@ const ClearSaved = () => {
 }
 
 const SignOut = () => {
-  const router = useRouter()
   const dispatch: AppDispatch = useDispatch()
   
   const handleSignOut = async () => {
