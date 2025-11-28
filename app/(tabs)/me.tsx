@@ -7,11 +7,11 @@ import {
   scheduleDailyReminder,
   sendTestNotification
 } from '@/utils/notifications'
-import { clearHistory } from '@/features/history/historySlice'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearSaved, selectSaved } from '@/features/saved/savedSlice'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { clearHistoryAsync } from '@/features/history/historyThunks'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -81,7 +81,7 @@ const ClearHistory = () => {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'OK', onPress: () => {
-            dispatch(clearHistory())
+            dispatch(clearHistoryAsync())
             Alert.alert('History Cleared', 'Your history has been successfully cleared.')
           }
         }

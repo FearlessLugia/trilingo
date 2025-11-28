@@ -4,20 +4,17 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { store } from '@/store/store'
 import { Provider } from 'react-redux'
-import { loadHistory } from '@/storage/historyStorage'
-import { setHistory } from '@/features/history/historySlice'
 import { useEffect } from 'react'
 import { loadSaved } from '@/storage/savedStorage'
 import { setSaved } from '@/features/saved/savedSlice'
 import * as Notifications from 'expo-notifications'
+import { loadHistoryAsync } from '@/features/history/historyThunks'
 
 export default function RootLayout() {
   const router = useRouter()
   
   useEffect(() => {
-    loadHistory().then((history) => {
-      store.dispatch(setHistory(history))
-    })
+    store.dispatch(loadHistoryAsync())
     
     loadSaved().then((saved) => {
       store.dispatch(setSaved(saved))

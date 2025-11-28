@@ -1,9 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { saveHistory } from '@/storage/historyStorage'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
 import { createSelector } from '@reduxjs/toolkit'
-
 interface HistoryState {
   history: RecordEntry[];
   loaded: boolean;
@@ -31,19 +29,16 @@ const historySlice = createSlice({
       } else {
         state.history[index].timestamp = timestamp
       }
-      
-      saveHistory(state.history)
     },
     
     deleteHistory: (state, action: PayloadAction<RecordEntry>) => {
+      const { headword, pivot } = action.payload
       state.history = state.history.filter(h =>
-        h.headword !== action.payload.headword || h.pivot !== action.payload.pivot)
-      saveHistory(state.history)
+        h.headword !== headword || h.pivot !== pivot)
     },
     
     clearHistory: (state) => {
       state.history = []
-      saveHistory(state.history)
     },
     
     setHistory: (state, action: PayloadAction<RecordEntry[]>) => {

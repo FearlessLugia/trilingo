@@ -10,9 +10,9 @@ import { underscoreToSpace } from '@/utils/stringUtils'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSaved, deleteSaved, selectSaved } from '@/features/saved/savedSlice'
-import { refreshHistory } from '@/features/history/historySlice'
 import { useEffect } from 'react'
 import { PivotBadge } from '@/components/PivotBadge'
+import { refreshHistoryAsync } from '@/features/history/historyThunks'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text style={globalStyles.headerText}>
@@ -87,7 +87,7 @@ const WordScreen = () => {
       pivot: pivot as Pivot
     }
     
-    dispatch(refreshHistory(newRecordEntry))
+    dispatch(refreshHistoryAsync(newRecordEntry))
   }, [])
   
   if (!finalSynsets) {
