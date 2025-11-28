@@ -1,6 +1,6 @@
 import { Alert, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   cancelAllNotifications,
   registerForNotifications,
@@ -30,10 +30,6 @@ const isToday = (timestamp: number | undefined) => {
 }
 
 const NotificationSetup = () => {
-  useEffect(() => {
-    registerForNotifications()
-  }, [])
-  
   const preference = useSelector(selectUserState).preference
   const enabled = preference.reminderEnabled
   const [time, setTime] = useState(() => {
@@ -43,33 +39,39 @@ const NotificationSetup = () => {
   })
   
   const saved = useSelector(selectSaved)
-  const todaySavedCount = saved.filter((entry) => isToday(entry.timestamp)).length
-  
-  useEffect(() => {
-    if (enabled) {
-      scheduleDailyReminder(time.getHours(), time.getMinutes(), todaySavedCount)
-    } else {
-      cancelAllNotifications()
-    }
-  }, [enabled, time, todaySavedCount])
+  const todaySavedCount = useMemo(
+    () => saved.filter(entry => isToday(entry.timestamp)).length,
+    [saved]
+  )
   
   const dispatch: AppDispatch = useDispatch()
   
-  const handleSwitch = (value: boolean) => {
-    if (value) {
-      const hour = preference.reminderHour ?? time.getHours() ?? 20
-      const minute = preference.reminderMinute ?? time.getMinutes() ?? 0
-      
-      dispatch(updatePreferenceAsync({
-        reminderEnabled: true,
-        reminderHour: hour,
-        reminderMinute: minute
-      }))
-    } else {
+  const handleSwitch = async (value: boolean) => {
+    if (!value) {
       dispatch(updatePreferenceAsync({
         reminderEnabled: false
       }))
+      
+      await cancelAllNotifications()
+      return
     }
+    
+    const granted = await registerForNotifications()
+    if (!granted) {
+      return
+    }
+    
+    const hour = preference.reminderHour ?? time.getHours() ?? 20
+    const minute = preference.reminderMinute ?? time.getMinutes() ?? 0
+    
+    dispatch(updatePreferenceAsync({
+      reminderEnabled: true,
+      reminderHour: hour,
+      reminderMinute: minute
+    }))
+    
+    await cancelAllNotifications()
+    await scheduleDailyReminder(hour, minute, todaySavedCount)
   }
   
   const handleTimeChange = (_: any, selected: Date | undefined) => {
