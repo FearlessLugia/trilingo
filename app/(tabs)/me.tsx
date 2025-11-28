@@ -15,6 +15,7 @@ import { clearHistoryAsync } from '@/features/history/historyThunks'
 import { clearSavedAsync } from '@/features/saved/savedThunks'
 import { supabase } from '@/utils/supabase'
 import { useRouter } from 'expo-router'
+import { User } from '@supabase/auth-js'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -136,23 +137,32 @@ const SignOut = () => {
 }
 
 const MeScreen = () => {
+  const [user, setUser] = useState<User | null>(null)
+  
   const router = useRouter()
   
   useEffect(() => {
     const checkLogin = async () => {
       const { data } = await supabase.auth.getSession()
+      
       if (!data.session) {
         router.replace('/signIn')
+        return
       }
+      
+      const sessionUser = data.session.user
+      setUser(sessionUser)
     }
     
     checkLogin()
   }, [])
   
+  const username = user?.email?.split('@')[0] ?? 'User'
+  
   return (
     <View style={globalStyles.container}>
       <View style={styles.container}>
-        <Text style={styles.headerText}>Hello, User!</Text>
+        <Text style={styles.headerText}>Hello, {username}!</Text>
         
         <NotificationSetup />
         
