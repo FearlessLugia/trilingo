@@ -23,6 +23,25 @@ export const loadUserAsync = createAsyncThunk(
   }
 )
 
+export const resetUserAsync = createAsyncThunk(
+  'user/resetUser',
+  async (_, { dispatch }) => {
+    dispatch(
+      setUser({
+        userId: null,
+        email: null,
+        username: null
+      })
+    )
+    
+    dispatch(updatePreference({
+      reminderEnabled: false,
+      reminderHour: null,
+      reminderMinute: null
+    }))
+  }
+)
+
 export const loadPreferenceAsync = createAsyncThunk(
   'user/loadPreference',
   async (_, { getState, dispatch }) => {

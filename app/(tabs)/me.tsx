@@ -1,6 +1,6 @@
 import { Alert, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   cancelAllNotifications,
   registerForNotifications,
@@ -14,7 +14,7 @@ import { clearHistoryAsync } from '@/features/history/historyThunks'
 import { selectSaved } from '@/features/saved/savedSlice'
 import { clearSavedAsync } from '@/features/saved/savedThunks'
 import { selectUserState } from '@/features/user/userSlice'
-import { updatePreferenceAsync } from '@/features/user/userThunks'
+import { resetUserAsync, updatePreferenceAsync } from '@/features/user/userThunks'
 import { supabase } from '@/utils/supabase'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
@@ -161,16 +161,19 @@ const ClearSaved = () => {
 
 const SignOut = () => {
   const router = useRouter()
+  const dispatch: AppDispatch = useDispatch()
   
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut()
     
     if (error) {
       Alert.alert('Error', 'Failed to sign out. Please try again.')
-    } else {
-      Alert.alert('Signed Out', 'You have been successfully signed out.')
+      return
     }
     
+    await dispatch(resetUserAsync())
+    
+    Alert.alert('Signed Out', 'You have been successfully signed out.')
     router.replace('/')
   }
   
@@ -185,7 +188,7 @@ const MeScreen = () => {
   const user = useSelector(selectUserState)
   
   if (!user.userId) {
-    return <Redirect href="/signIn" />
+    return <Redirect href='/signIn' />
   }
   
   return (

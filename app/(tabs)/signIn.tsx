@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet, Alert } from 'react-native'
 import { supabase } from '@/utils/supabase'
 import AuthForm from '@/components/AuthForm'
 import { useRouter } from 'expo-router'
@@ -15,7 +15,7 @@ const SignInScreen = () => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     
     if (error) {
-      alert(error.message)
+      Alert.alert('Sign In', error.message)
       return
     }
     
@@ -28,7 +28,7 @@ const SignInScreen = () => {
       }))
     }
     
-    alert('Sign in successful!')
+    Alert.alert('Sign In', 'Sign in successful!')
     router.replace('/')
   }
   
