@@ -1,4 +1,4 @@
-import { SectionList, Pressable, StyleSheet, Text, View } from 'react-native'
+import { SectionList, Pressable, StyleSheet, Text, View, FlatList } from 'react-native'
 import { RecordEntry } from '@/types'
 import { useRouter } from 'expo-router'
 import { PivotBadge } from '@/components/PivotBadge'
@@ -20,8 +20,26 @@ const RecordListEntry = ({ item }: { item: RecordEntry }) => {
   )
 }
 
-const RecordList = ({ recordList }: { recordList: RecordEntry[] }) => {
+const RecordList = ({ recordList, showDate = true }: {
+  recordList: RecordEntry[], showDate?: boolean
+}) => {
   const router = useRouter()
+  
+  if (!showDate) {
+    return (
+      <FlatList
+        style={styles.flatList}
+        data={recordList}
+        keyExtractor={(item) => `${item.headword}|${item.pivot}|${item.timestamp}`}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => router.push(`/word/${item.headword}/${item.pivot}`)}>
+            <RecordListEntry item={item} />
+          </Pressable>
+        )}
+        ItemSeparatorComponent={ItemSeparator}
+      />
+    )
+  }
   
   const sections = groupByDate(recordList)
   
@@ -54,6 +72,10 @@ const RecordList = ({ recordList }: { recordList: RecordEntry[] }) => {
 export default RecordList
 
 const styles = StyleSheet.create({
+  flatList:{
+    paddingTop: 18,
+  },
+  
   sectionHeader: {
     paddingHorizontal: 12,
     paddingTop: 18,

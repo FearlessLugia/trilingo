@@ -29,6 +29,11 @@ export type SynsetsResponse = {
   synsets: Synset[]
 }
 
+export interface LanguagesResponse {
+  query: string
+  languages: Pivot[]
+}
+
 export type RecordEntry = {
   headword: string
   pivot: Pivot

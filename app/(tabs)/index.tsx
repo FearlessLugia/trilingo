@@ -1,35 +1,14 @@
 import { StyleSheet, View, TextInput } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
 import { useState } from 'react'
-import { useRouter } from 'expo-router'
-import { Pivot } from '@/types'
-import { spaceToUnderscore } from '@/utils/stringUtils'
 import { selectHistory } from '@/features/history/historySlice'
 import { useSelector } from 'react-redux'
 import RecordList from '@/components/RecordList'
+import useLanguages from '@/hooks/useLanguages'
 
-const SearchBar = () => {
-  const [query, setQuery] = useState('')
-  const [pivot, setPivot] = useState<Pivot>('eng')
-  const router = useRouter()
-  
-  const handleSearch = () => {
-    const trimmed = query.trim()
-    if (/\p{L}/u.test(trimmed)) {
-      const normalizedHeadword = spaceToUnderscore(trimmed)
-      
-      router.push({
-        pathname: '/word/[headword]/[pivot]',
-        params: {
-          headword: spaceToUnderscore(normalizedHeadword),
-          pivot
-        }
-      })
-    }
-    
-    setQuery('')
-  }
-  
+const SearchBar = ({ query, setQuery }: {
+  query: string, setQuery: (value: string) => void
+}) => {
   return (
     <View style={styles.searchBar}>
       <TextInput
@@ -38,7 +17,6 @@ const SearchBar = () => {
         placeholder='Search...'
         value={query}
         onChangeText={setQuery}
-        onSubmitEditing={handleSearch}
         returnKeyType='search'
       />
     </View>
@@ -48,11 +26,24 @@ const SearchBar = () => {
 const HomeScreen = () => {
   const history = useSelector(selectHistory)
   
+  const [query, setQuery] = useState('')
+  
+  const { data } = useLanguages(query.trim())
+  
+  const list = data ? data.languages.map((lang) => ({
+    headword: query,
+    pivot: lang,
+    timestamp: Date.now()
+  })) : []
+  
   return (
     <View style={globalStyles.container}>
-      <SearchBar />
+      <SearchBar query={query} setQuery={setQuery} />
       
-      <RecordList recordList={history} />
+      {data
+        ? <RecordList recordList={list} showDate={false} />
+        : <RecordList recordList={history} />
+      }
     </View>
   )
 }
