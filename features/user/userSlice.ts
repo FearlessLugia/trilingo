@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/store/store'
-import { loadPreferenceAsync, loadUserAsync } from '@/features/user/userThunks'
 import { Preference } from '@/types'
 
 interface UserState {

@@ -18,6 +18,8 @@ export const loadUserAsync = createAsyncThunk(
     }
     
     dispatch(setUser(userState))
+    
+    await dispatch(loadPreferenceAsync())
   }
 )
 
@@ -27,13 +29,15 @@ export const loadPreferenceAsync = createAsyncThunk(
     const userId = (getState() as RootState).user.userId
     const data = await loadPreference(userId)
     
-    dispatch(setPreference(data!))
+    if (data) {
+      dispatch(setPreference(data))
+    }
   }
 )
 
 export const updatePreferenceAsync = createAsyncThunk(
   'user/savePreference',
-  async (entry: Preference, { getState, dispatch }) => {
+  async (entry: Partial<Preference>, { getState, dispatch }) => {
     dispatch(updatePreference(entry))
     
     const user = (getState() as RootState).user
