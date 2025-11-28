@@ -2,6 +2,8 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
 import { createSelector } from '@reduxjs/toolkit'
+import { loadHistoryAsync } from '@/features/history/historyThunks'
+
 interface HistoryState {
   history: RecordEntry[];
   loaded: boolean;
@@ -39,16 +41,18 @@ const historySlice = createSlice({
     
     clearHistory: (state) => {
       state.history = []
-    },
-    
-    setHistory: (state, action: PayloadAction<RecordEntry[]>) => {
+    }
+  },
+  
+  extraReducers: (builder) => {
+    builder.addCase(loadHistoryAsync.fulfilled, (state, action) => {
       state.history = action.payload
       state.loaded = true
-    }
+    })
   }
 })
 
-export const { refreshHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
+export const { refreshHistory, deleteHistory, clearHistory } = historySlice.actions
 
 const selectHistoryState = (state: RootState) => state.history.history
 

@@ -2,6 +2,8 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
 import { createSelector } from '@reduxjs/toolkit'
+import { loadHistoryAsync } from '@/features/history/historyThunks'
+import { loadSavedAsync } from '@/features/saved/savedThunks'
 
 interface SavedState {
   saved: RecordEntry[];
@@ -31,16 +33,18 @@ const savedSlice = createSlice({
     
     clearSaved: (state) => {
       state.saved = []
-    },
-    
-    setSaved: (state, action: PayloadAction<RecordEntry[]>) => {
+    }
+  },
+  
+  extraReducers: (builder) => {
+    builder.addCase(loadSavedAsync.fulfilled, (state, action) => {
       state.saved = action.payload
       state.loaded = true
-    }
+    })
   }
 })
 
-export const { addSaved, deleteSaved, clearSaved, setSaved } = savedSlice.actions
+export const { addSaved, deleteSaved, clearSaved } = savedSlice.actions
 
 const selectSavedState = (state: RootState) => state.saved.saved
 
