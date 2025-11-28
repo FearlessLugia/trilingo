@@ -9,9 +9,10 @@ import {
 } from '@/utils/notifications'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearSaved, selectSaved } from '@/features/saved/savedSlice'
+import { selectSaved } from '@/features/saved/savedSlice'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { clearHistoryAsync } from '@/features/history/historyThunks'
+import { clearSavedAsync } from '@/features/saved/savedThunks'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -105,7 +106,7 @@ const ClearSaved = () => {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'OK', onPress: () => {
-            dispatch(clearSaved())
+            dispatch(clearSavedAsync())
             Alert.alert('Saved Words Cleared', 'Your saved words has been successfully cleared.')
           }
         }

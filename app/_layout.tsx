@@ -5,10 +5,9 @@ import { StyleSheet } from 'react-native'
 import { store } from '@/store/store'
 import { Provider } from 'react-redux'
 import { useEffect } from 'react'
-import { loadSaved } from '@/storage/savedStorage'
-import { setSaved } from '@/features/saved/savedSlice'
 import * as Notifications from 'expo-notifications'
 import { loadHistoryAsync } from '@/features/history/historyThunks'
+import { loadSavedAsync } from '@/features/saved/savedThunks'
 
 export default function RootLayout() {
   const router = useRouter()
@@ -16,9 +15,7 @@ export default function RootLayout() {
   useEffect(() => {
     store.dispatch(loadHistoryAsync())
     
-    loadSaved().then((saved) => {
-      store.dispatch(setSaved(saved))
-    })
+    store.dispatch(loadSavedAsync())
   }, [])
   
   useEffect(() => {

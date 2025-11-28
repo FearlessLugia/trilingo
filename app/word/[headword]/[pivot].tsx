@@ -9,10 +9,11 @@ import useSynsets from '@/hooks/useSynsets'
 import { underscoreToSpace } from '@/utils/stringUtils'
 import { AppDispatch } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSaved, deleteSaved, selectSaved } from '@/features/saved/savedSlice'
+import { selectSaved } from '@/features/saved/savedSlice'
 import { useEffect } from 'react'
 import { PivotBadge } from '@/components/PivotBadge'
 import { refreshHistoryAsync } from '@/features/history/historyThunks'
+import { addSavedAsync, deleteSavedAsync } from '@/features/saved/savedThunks'
 
 const HeaderWord = ({ headword }: { headword: string }) => (
   <Text style={globalStyles.headerText}>
@@ -32,13 +33,13 @@ const WordScreenHeader = ({ headword, pivot, synsets }: { headword: string, pivo
   
   const toggleStar = () => {
     if (!isSaved) {
-      dispatch(addSaved({
+      dispatch(addSavedAsync({
         headword,
         pivot,
         synsets: synsets ?? []
       }))
     } else {
-      dispatch(deleteSaved({ headword, pivot }))
+      dispatch(deleteSavedAsync({ headword, pivot }))
     }
   }
   

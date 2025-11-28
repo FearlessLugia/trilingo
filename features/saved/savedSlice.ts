@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { saveSaved } from '@/storage/savedStorage'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
 import { createSelector } from '@reduxjs/toolkit'
@@ -22,18 +21,16 @@ const savedSlice = createSlice({
       const timestamp = Date.now()
       const newSaved: RecordEntry = { timestamp, ...action.payload }
       state.saved.push(newSaved)
-      saveSaved(state.saved)
     },
     
     deleteSaved: (state, action: PayloadAction<Omit<RecordEntry, 'timestamp'>>) => {
+      const { headword, pivot } = action.payload
       state.saved = state.saved.filter(s =>
-        s.headword !== action.payload.headword || s.pivot !== action.payload.pivot)
-      saveSaved(state.saved)
+        s.headword !== headword || s.pivot !== pivot)
     },
     
     clearSaved: (state) => {
       state.saved = []
-      saveSaved(state.saved)
     },
     
     setSaved: (state, action: PayloadAction<RecordEntry[]>) => {
