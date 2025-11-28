@@ -26,7 +26,7 @@ const SignUpScreen = () => {
       
       <Button
         title='Already have an account? Sign In'
-        onPress={() => router.push('/signIn')}
+        onPress={() => router.replace('/signIn')}
       />
     </View>
   )

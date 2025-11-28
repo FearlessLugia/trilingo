@@ -142,7 +142,7 @@ const MeScreen = () => {
   const router = useRouter()
   
   useEffect(() => {
-    const checkLogin = async () => {
+    const checkSignIn = async () => {
       const { data } = await supabase.auth.getSession()
       
       if (!data.session) {
@@ -154,7 +154,7 @@ const MeScreen = () => {
       setUser(sessionUser)
     }
     
-    checkLogin()
+    checkSignIn()
   }, [])
   
   const username = user?.email?.split('@')[0] ?? 'User'
