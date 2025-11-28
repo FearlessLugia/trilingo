@@ -2,14 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { loadHistory, saveHistory } from '@/storage/historyStorage'
 import { RootState } from '@/store/store'
 import { RecordEntry } from '@/types'
-import { clearHistory, deleteHistory, refreshHistory } from '@/features/history/historySlice'
+import { refreshHistory, deleteHistory, clearHistory, setHistory } from '@/features/history/historySlice'
 
 export const loadHistoryAsync = createAsyncThunk(
   'history/loadHistory',
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const state = getState() as RootState
     const userId = state.user.userId
-    return await loadHistory(userId)
+    const data = await loadHistory(userId)
+    
+    dispatch(setHistory(data))
   }
 )
 

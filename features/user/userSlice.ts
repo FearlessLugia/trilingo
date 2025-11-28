@@ -27,35 +27,28 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUser: (state, action: PayloadAction<Partial<UserState>>) => {
+      if (action.payload !== null) {
+        const { userId, email } = action.payload
+        state.userId = userId ?? null
+        state.email = email ?? null
+        state.username = email?.split('@')[0] ?? 'User'
+      }
+      state.loaded = true
+    },
+    
     updatePreference(state, action: PayloadAction<Partial<Preference>>) {
       state.preference = { ...state.preference, ...action.payload }
-    }
-  },
-  
-  extraReducers: (builder) => {
-    builder.addCase(loadUserAsync.fulfilled, (state, action) => {
-      const { userId, email, username } = action.payload
-      state.userId = userId
-      state.email = email
-      state.username = username
-      state.loaded = true
-    })
+    },
     
-    builder.addCase(loadPreferenceAsync.fulfilled, (state, action) => {
-      state.preference = { ...state.preference, ...action.payload }
-    })
+    setPreference: (state, action: PayloadAction<Preference>) => {
+      state.preference = action.payload
+    }
   }
 })
 
-export const { updatePreference } = userSlice.actions
+export const { setUser, updatePreference, setPreference } = userSlice.actions
 
-const selectUserState = (state: RootState) => state.user
-
-// export const selectUser = createSelector(
-//   [selectUserState],
-//   (user) => {
-//     return [...user].sort((a, b) => b.timestamp - a.timestamp)
-//   }
-// )
+export const selectUserState = (state: RootState) => state.user
 
 export default userSlice.reducer

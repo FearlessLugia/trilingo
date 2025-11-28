@@ -41,18 +41,16 @@ const historySlice = createSlice({
     
     clearHistory: (state) => {
       state.history = []
-    }
-  },
-  
-  extraReducers: (builder) => {
-    builder.addCase(loadHistoryAsync.fulfilled, (state, action) => {
+    },
+    
+    setHistory: (state, action: PayloadAction<RecordEntry[]>) => {
       state.history = action.payload
       state.loaded = true
-    })
+    }
   }
 })
 
-export const { refreshHistory, deleteHistory, clearHistory } = historySlice.actions
+export const { refreshHistory, deleteHistory, clearHistory, setHistory } = historySlice.actions
 
 const selectHistoryState = (state: RootState) => state.history.history
 

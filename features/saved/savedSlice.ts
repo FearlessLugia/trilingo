@@ -33,18 +33,16 @@ const savedSlice = createSlice({
     
     clearSaved: (state) => {
       state.saved = []
-    }
-  },
-  
-  extraReducers: (builder) => {
-    builder.addCase(loadSavedAsync.fulfilled, (state, action) => {
+    },
+    
+    setSaved: (state, action: PayloadAction<RecordEntry[]>) => {
       state.saved = action.payload
       state.loaded = true
-    })
+    }
   }
 })
 
-export const { addSaved, deleteSaved, clearSaved } = savedSlice.actions
+export const { addSaved, deleteSaved, clearSaved, setSaved } = savedSlice.actions
 
 const selectSavedState = (state: RootState) => state.saved.saved
 

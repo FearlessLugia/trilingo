@@ -2,14 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { loadSaved, saveSaved } from '@/storage/savedStorage'
 import { RootState } from '@/store/store'
 import { RecordEntry } from '@/types'
-import { addSaved, clearSaved, deleteSaved } from '@/features/saved/savedSlice'
+import { addSaved, clearSaved, deleteSaved, setSaved } from '@/features/saved/savedSlice'
 
 export const loadSavedAsync = createAsyncThunk(
   'saved/loadSaved',
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const state = getState() as RootState
     const userId = state.user.userId
-    return await loadSaved(userId)
+    const data = await loadSaved(userId)
+    
+    dispatch(setSaved(data))
   }
 )
 
