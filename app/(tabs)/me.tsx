@@ -32,11 +32,12 @@ const isToday = (timestamp: number | undefined) => {
 const NotificationSetup = () => {
   const preference = useSelector(selectUserState).preference
   const enabled = preference.reminderEnabled
-  const [time, setTime] = useState(() => {
-    const h = preference.reminderHour ?? 20
-    const m = preference.reminderMinute ?? 0
-    return new Date(new Date().setHours(Number(h), Number(m), 0, 0))
-  })
+  const hour = preference.reminderHour ?? 20
+  const minute = preference.reminderMinute ?? 0
+  const reminderTime = useMemo(
+    () => new Date(new Date().setHours(hour, minute, 0, 0)),
+    []
+  )
   
   const saved = useSelector(selectSaved)
   const todaySavedCount = useMemo(
@@ -76,8 +77,6 @@ const NotificationSetup = () => {
   
   const handleTimeChange = (_: any, selected: Date | undefined) => {
     if (selected) {
-      setTime(selected)
-      
       dispatch(updatePreferenceAsync({
         reminderHour: selected.getHours(),
         reminderMinute: selected.getMinutes()
@@ -95,7 +94,7 @@ const NotificationSetup = () => {
             <View style={styles.timeWrapper}>
               <DateTimePicker
                 mode='time'
-                value={time}
+                value={reminderTime}
                 onChange={handleTimeChange}
               />
             </View>
