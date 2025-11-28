@@ -19,6 +19,16 @@ const TabsLayout = () => (
       tabBarIcon: ({ color }) =>
         <Ionicons name='home-outline' size={20} color={color} />
     }} />
+    
+    <Tabs.Screen name='signIn' options={{
+      href: null,
+      title: 'Sign In'
+    }} />
+    <Tabs.Screen name='signUp' options={{
+      href: null,
+      title: 'Sign Up'
+    }} />
+  
   </Tabs>
 )
 
