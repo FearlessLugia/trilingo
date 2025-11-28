@@ -3,10 +3,10 @@ import { RecordEntry } from '@/types'
 
 const HISTORY_STORAGE_KEY = '@Trilingo_history'
 
-const getKey = (userId: string) =>
-  `${HISTORY_STORAGE_KEY}:${userId}`
+const getKey = (userId: string | null) =>
+  userId ? `${HISTORY_STORAGE_KEY}:${userId}` : HISTORY_STORAGE_KEY
 
-export async function loadHistory(userId: string): Promise<RecordEntry[]> {
+export async function loadHistory(userId: string | null): Promise<RecordEntry[]> {
   try {
     const history = await AsyncStorage.getItem(getKey(userId))
     return history ? JSON.parse(history) : []
@@ -15,7 +15,7 @@ export async function loadHistory(userId: string): Promise<RecordEntry[]> {
   }
 }
 
-export async function saveHistory(userId: string, history: RecordEntry[]): Promise<void> {
+export async function saveHistory(userId: string | null, history: RecordEntry[]): Promise<void> {
   try {
     await AsyncStorage.setItem(getKey(userId), JSON.stringify(history))
   } catch {
