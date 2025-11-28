@@ -8,11 +8,14 @@ import { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
 import { loadHistoryAsync } from '@/features/history/historyThunks'
 import { loadSavedAsync } from '@/features/saved/savedThunks'
+import { loadUserAsync } from '@/features/user/userThunks'
 
 export default function RootLayout() {
   const router = useRouter()
   
   useEffect(() => {
+    store.dispatch(loadUserAsync())
+    
     store.dispatch(loadHistoryAsync())
     
     store.dispatch(loadSavedAsync())

@@ -7,15 +7,16 @@ import {
   scheduleDailyReminder,
   sendTestNotification
 } from '@/utils/notifications'
-import { AppDispatch } from '@/store/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectSaved } from '@/features/saved/savedSlice'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { clearHistoryAsync } from '@/features/history/historyThunks'
-import { clearSavedAsync } from '@/features/saved/savedThunks'
-import { supabase } from '@/utils/supabase'
 import { useRouter } from 'expo-router'
-import { User } from '@supabase/auth-js'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/store/store'
+import { clearHistoryAsync } from '@/features/history/historyThunks'
+import { selectSaved } from '@/features/saved/savedSlice'
+import { clearSavedAsync } from '@/features/saved/savedThunks'
+import { selectUserState } from '@/features/user/userSlice'
+import { updatePreferenceAsync } from '@/features/user/userThunks'
+import { supabase } from '@/utils/supabase'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 const isToday = (timestamp: number | undefined) => {
   if (!timestamp) return false
@@ -33,8 +34,13 @@ const NotificationSetup = () => {
     registerForNotifications()
   }, [])
   
-  const [enabled, setEnabled] = useState(true)
-  const [time, setTime] = useState(() => new Date(new Date().setHours(20, 0, 0, 0)))
+  const preference = useSelector(selectUserState).preference
+  const enabled = preference.reminderEnabled
+  const [time, setTime] = useState(() => {
+    const h = preference.reminderHour ?? 20
+    const m = preference.reminderMinute ?? 0
+    return new Date(new Date().setHours(Number(h), Number(m), 0, 0))
+  })
   
   const saved = useSelector(selectSaved)
   const todaySavedCount = saved.filter((entry) => isToday(entry.timestamp)).length
@@ -47,6 +53,35 @@ const NotificationSetup = () => {
     }
   }, [enabled, time, todaySavedCount])
   
+  const dispatch: AppDispatch = useDispatch()
+  
+  const handleSwitch = (value: boolean) => {
+    if (value) {
+      const hour = preference.reminderHour ?? time.getHours() ?? 20
+      const minute = preference.reminderMinute ?? time.getMinutes() ?? 0
+      
+      dispatch(updatePreferenceAsync({
+        reminderEnabled: true,
+        reminderHour: hour,
+        reminderMinute: minute
+      }))
+    } else {
+      dispatch(updatePreferenceAsync({
+        reminderEnabled: false
+      }))
+    }
+  }
+  
+  const handleTimeChange = (_: any, selected: Date | undefined) => {
+    if (selected) {
+      setTime(selected)
+      dispatch(updatePreferenceAsync({
+        reminderHour: selected.getHours(),
+        reminderMinute: selected.getMinutes()
+      }))
+    }
+  }
+  
   return (
     <View style={styles.group}>
       <View style={[styles.button, styles.notification]}>
@@ -58,14 +93,12 @@ const NotificationSetup = () => {
               <DateTimePicker
                 mode='time'
                 value={time}
-                onChange={(_, selected) =>
-                  selected && setTime(selected)
-                }
+                onChange={handleTimeChange}
               />
             </View>
           )}
           
-          <Switch style={styles.switch} value={enabled} onValueChange={setEnabled} />
+          <Switch style={styles.switch} value={enabled} onValueChange={handleSwitch} />
         </View>
       </View>
       
@@ -125,8 +158,18 @@ const ClearSaved = () => {
 }
 
 const SignOut = () => {
+  const router = useRouter()
+  
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut()
+    
+    if (error) {
+      Alert.alert('Error', 'Failed to sign out. Please try again.')
+    } else {
+      Alert.alert('Signed Out', 'You have been successfully signed out.')
+    }
+    
+    router.replace('/')
   }
   
   return (
@@ -137,32 +180,20 @@ const SignOut = () => {
 }
 
 const MeScreen = () => {
-  const [user, setUser] = useState<User | null>(null)
-  
   const router = useRouter()
   
-  useEffect(() => {
-    const checkSignIn = async () => {
-      const { data } = await supabase.auth.getSession()
-      
-      if (!data.session) {
-        router.replace('/signIn')
-        return
-      }
-      
-      const sessionUser = data.session.user
-      setUser(sessionUser)
-    }
-    
-    checkSignIn()
-  }, [])
+  const user = useSelector(selectUserState)
   
-  const username = user?.email?.split('@')[0] ?? 'User'
+  useEffect(() => {
+    if (!user.userId) {
+      router.replace('/signIn')
+    }
+  }, [user.userId])
   
   return (
     <View style={globalStyles.container}>
       <View style={styles.container}>
-        <Text style={styles.headerText}>Hello, {username}!</Text>
+        <Text style={styles.headerText}>Hello, {user.username}!</Text>
         
         <NotificationSetup />
         
