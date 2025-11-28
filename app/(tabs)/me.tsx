@@ -171,10 +171,9 @@ const SignOut = () => {
       return
     }
     
-    await dispatch(resetUserAsync())
-    
     Alert.alert('Signed Out', 'You have been successfully signed out.')
-    router.replace('/')
+    
+    await dispatch(resetUserAsync())
   }
   
   return (
