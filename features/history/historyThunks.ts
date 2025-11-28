@@ -6,8 +6,10 @@ import { clearHistory, deleteHistory, refreshHistory } from '@/features/history/
 
 export const loadHistoryAsync = createAsyncThunk(
   'history/loadHistory',
-  async () => {
-    return await loadHistory()
+  async (_, { getState }) => {
+    const state = getState() as RootState
+    const userId = state.user.userId
+    return await loadHistory(userId)
   }
 )
 
@@ -16,8 +18,10 @@ export const refreshHistoryAsync = createAsyncThunk(
   async (entry: Omit<RecordEntry, 'timestamp'>, { getState, dispatch }) => {
     dispatch(refreshHistory(entry))
     
-    const history = (getState() as RootState).history.history
-    await saveHistory(history)
+    const state = getState() as RootState
+    const userId = state.user.userId
+    const history = state.history.history
+    await saveHistory(userId, history)
     return history
   }
 )
@@ -27,15 +31,19 @@ export const deleteHistoryAsync = createAsyncThunk(
   async (entry: RecordEntry, { getState, dispatch }) => {
     dispatch(deleteHistory(entry))
     
-    const history = (getState() as RootState).history.history
-    await saveHistory(history)
+    const state = getState() as RootState
+    const userId = state.user.userId
+    const history = state.history.history
+    await saveHistory(userId, history)
     return history
   }
 )
 export const clearHistoryAsync = createAsyncThunk(
   'history/clearHistory',
-  async (_, { dispatch }) => {
+  async (_, { getState, dispatch }) => {
     dispatch(clearHistory())
-    await saveHistory([])
+    const state = getState() as RootState
+    const userId = state.user.userId
+    await saveHistory(userId, [])
   }
 )
