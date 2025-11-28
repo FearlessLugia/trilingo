@@ -20,6 +20,24 @@ const RecordListEntry = ({ item }: { item: RecordEntry }) => {
   )
 }
 
+const PressableRecord = ({ item, children }: {
+  item: RecordEntry, children: React.ReactNode
+}) => {
+  const router = useRouter()
+  
+  const onPress = () => {
+    router.push({
+      pathname: '/word/[headword]/[pivot]',
+      params: {
+        headword: spaceToUnderscore(item.headword),
+        pivot: item.pivot
+      }
+    })
+  }
+  
+  return <Pressable onPress={onPress}>{children}</Pressable>
+}
+
 const RecordList = ({ recordList, showDate = true }: {
   recordList: RecordEntry[], showDate?: boolean
 }) => {
@@ -32,9 +50,9 @@ const RecordList = ({ recordList, showDate = true }: {
         data={recordList}
         keyExtractor={(item) => `${item.headword}|${item.pivot}|${item.timestamp}`}
         renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/word/${item.headword}/${item.pivot}`)}>
+          <PressableRecord item={item}>
             <RecordListEntry item={item} />
-          </Pressable>
+          </PressableRecord>
         )}
         ItemSeparatorComponent={ItemSeparator}
       />
@@ -48,17 +66,9 @@ const RecordList = ({ recordList, showDate = true }: {
       sections={sections}
       keyExtractor={(item) => `${item.headword}|${item.pivot}|${item.timestamp}`}
       renderItem={({ item }) => (
-        <Pressable onPress={() =>
-          router.push({
-            pathname: '/word/[headword]/[pivot]',
-            params: {
-              headword: spaceToUnderscore(item.headword),
-              pivot: item.pivot
-            }
-          })
-        }>
+        <PressableRecord item={item}>
           <RecordListEntry item={item} />
-        </Pressable>
+        </PressableRecord>
       )}
       renderSectionHeader={({ section }) => (
         <Text style={styles.sectionHeader}>{section.title}</Text>
@@ -72,8 +82,8 @@ const RecordList = ({ recordList, showDate = true }: {
 export default RecordList
 
 const styles = StyleSheet.create({
-  flatList:{
-    paddingTop: 18,
+  flatList: {
+    paddingTop: 18
   },
   
   sectionHeader: {
