@@ -35,3 +35,9 @@ export type RecordEntry = {
   timestamp: number
   synsets?: Synset[]
 }
+
+export type Preference = {
+  reminderEnabled: boolean
+  reminderHour: number | null
+  reminderMinute: number | null
+}

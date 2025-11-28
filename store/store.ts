@@ -1,13 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
 import historyReducer from '@/features/history/historySlice'
 import savedReducer from '@/features/saved/savedSlice'
 import synsetStackReducer from '@/features/synsetStack/synsetStackSlice'
+import userReducer from '@/features/user/userSlice'
 
 export const store = configureStore({
   reducer: {
     history: historyReducer,
     saved: savedReducer,
-    synsetStack: synsetStackReducer
+    synsetStack: synsetStackReducer,
+    user: userReducer
   }
 })
 
