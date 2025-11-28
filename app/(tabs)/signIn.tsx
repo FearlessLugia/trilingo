@@ -3,19 +3,33 @@ import { supabase } from '@/utils/supabase'
 import AuthForm from '@/components/AuthForm'
 import { useRouter } from 'expo-router'
 import { globalStyles } from '@/styles/globalStyles'
+import { setUser } from '@/features/user/userSlice'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store/store'
 
 const SignInScreen = () => {
   const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
   
   const handleSignIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     
     if (error) {
       alert(error.message)
-    } else {
-      alert('Sign in successful!')
-      router.replace('/')
+      return
     }
+    
+    const sessionUser = data.user ?? data.session?.user
+    if (sessionUser) {
+      dispatch(setUser({
+        userId: sessionUser.id,
+        email: sessionUser.email,
+        username: sessionUser.user_metadata?.username ?? null
+      }))
+    }
+    
+    alert('Sign in successful!')
+    router.replace('/')
   }
   
   return (
