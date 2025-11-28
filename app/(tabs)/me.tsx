@@ -7,7 +7,7 @@ import {
   scheduleDailyReminder,
   sendTestNotification
 } from '@/utils/notifications'
-import { useRouter } from 'expo-router'
+import { Redirect, useRouter } from 'expo-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/store/store'
 import { clearHistoryAsync } from '@/features/history/historyThunks'
@@ -77,6 +77,7 @@ const NotificationSetup = () => {
   const handleTimeChange = (_: any, selected: Date | undefined) => {
     if (selected) {
       setTime(selected)
+      
       dispatch(updatePreferenceAsync({
         reminderHour: selected.getHours(),
         reminderMinute: selected.getMinutes()
@@ -182,15 +183,11 @@ const SignOut = () => {
 }
 
 const MeScreen = () => {
-  const router = useRouter()
-  
   const user = useSelector(selectUserState)
   
-  useEffect(() => {
-    if (!user.userId) {
-      router.replace('/signIn')
-    }
-  }, [user.userId])
+  if (!user.userId) {
+    return <Redirect href="/signIn" />
+  }
   
   return (
     <View style={globalStyles.container}>
