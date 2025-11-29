@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { SynsetsRequest, SynsetsResponse } from '@/types'
+import { apiFetch } from '@/utils/api'
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL
 
@@ -12,9 +13,8 @@ const useSynsets = (body: SynsetsRequest) => {
     
     const url = `${API_BASE_URL}/align`
     
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     const json = await response.json()
