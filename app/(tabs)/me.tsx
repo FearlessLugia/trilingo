@@ -165,6 +165,7 @@ const ClearSaved = () => {
 }
 
 const SignOut = () => {
+  const router = useRouter()
   const dispatch: AppDispatch = useDispatch()
   
   const handleSignOut = async () => {
@@ -178,6 +179,8 @@ const SignOut = () => {
     Alert.alert('Signed Out', 'You have been successfully signed out.')
     
     await dispatch(resetUserAsync())
+    
+    router.replace('/signIn')
   }
   
   return (
@@ -189,10 +192,6 @@ const SignOut = () => {
 
 const MeScreen = () => {
   const user = useSelector(selectUserState)
-  
-  if (!user.userId) {
-    return <Redirect href='/signIn' />
-  }
   
   return (
     <View style={globalStyles.container}>
@@ -259,9 +258,8 @@ const styles = StyleSheet.create({
   },
   
   switch: {
-    // transform: [{ scaleX: .65 }, { scaleY: .78 }],
     height: 20,
     alignSelf: 'center',
-    marginTop: -5
+    marginTop: -10
   }
 })
