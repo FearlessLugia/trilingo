@@ -31,17 +31,18 @@ const HomeScreen = () => {
   
   const { data } = useLanguages(query.trim())
   
-  const list = data ? data.languages.map((lang) => ({
+  const languages = Array.isArray(data?.languages) ? data.languages : []
+  const list = languages.map((lang) => ({
     headword: query,
     pivot: lang,
     timestamp: Date.now()
-  })) : []
+  }))
   
   return (
     <View style={globalStyles.container}>
       <SearchBar query={query} setQuery={setQuery} />
       
-      {data
+      {languages.length > 0
         ? <RecordList recordList={list} showDate={false} />
         : <RecordList recordList={history} />
       }
