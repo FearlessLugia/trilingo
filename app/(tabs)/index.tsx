@@ -18,6 +18,7 @@ const SearchBar = ({ query, setQuery }: {
         value={query}
         onChangeText={setQuery}
         returnKeyType='search'
+        clearButtonMode='while-editing'
       />
     </View>
   )
