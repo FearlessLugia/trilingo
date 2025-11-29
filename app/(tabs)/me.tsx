@@ -31,13 +31,12 @@ const isToday = (timestamp: number | undefined) => {
 
 const NotificationSetup = () => {
   const preference = useSelector(selectUserState).preference
-  console.log('preference', preference)
   const enabled = preference.reminderEnabled
   const hour = preference.reminderHour ?? 20
   const minute = preference.reminderMinute ?? 0
   const reminderTime = useMemo(
     () => new Date(new Date().setHours(hour, minute, 0, 0)),
-    []
+    [hour, minute]
   )
   
   const saved = useSelector(selectSaved)
@@ -78,13 +77,16 @@ const NotificationSetup = () => {
       return
     }
     
+    const newHour = selected.getHours()
+    const newMinute = selected.getMinutes()
+    
     dispatch(updatePreferenceAsync({
-      reminderHour: selected.getHours(),
-      reminderMinute: selected.getMinutes()
+      reminderHour: newHour,
+      reminderMinute: newMinute
     }))
     
     await cancelAllNotifications()
-    await scheduleDailyReminder(hour, minute, todaySavedCount)
+    await scheduleDailyReminder(newHour, newMinute, todaySavedCount)
   }
   
   return (
@@ -257,7 +259,7 @@ const styles = StyleSheet.create({
   },
   
   switch: {
-    transform: [{ scaleX: .65 }, { scaleY: .78 }],
+    // transform: [{ scaleX: .65 }, { scaleY: .78 }],
     height: 20,
     alignSelf: 'center',
     marginTop: -5

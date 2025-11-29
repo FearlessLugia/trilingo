@@ -13,13 +13,11 @@ import { loadUserAsync } from '@/features/user/userThunks'
 const InnerLayout = () => {
   const router = useRouter()
   
-  useEffect(() => {
-    store.dispatch(loadUserAsync())
-  }, [])
-  
   const userId = useSelector((state: RootState) => state.user.userId)
   
   useEffect(() => {
+    store.dispatch(loadUserAsync())
+    
     store.dispatch(loadHistoryAsync())
     store.dispatch(loadSavedAsync())
   }, [userId])
