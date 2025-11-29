@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, Text, StyleSheet, Pressable } from 'react-native'
+import { colors } from '@/constants/colors'
+import { globalStyles } from '@/styles/globalStyles'
 
 type Props = {
   submitLabel: string
@@ -32,7 +34,15 @@ const AuthForm = ({ submitLabel, onSubmit }: Props) => {
         style={styles.input}
       />
       
-      <Button title={submitLabel} onPress={handlePress} />
+      <Pressable
+        style={({ pressed }) => [
+          globalStyles.button,
+          pressed && { opacity: 0.8 }
+        ]}
+        onPress={handlePress}
+      >
+        <Text style={globalStyles.buttonText}>{submitLabel}</Text>
+      </Pressable>
     </View>
   )
 }
@@ -46,7 +56,7 @@ const styles = StyleSheet.create({
   
   input: {
     borderWidth: 1,
-    borderColor: '#CCC',
+    borderColor: colors['border'],
     borderRadius: 6,
     padding: 10
   }

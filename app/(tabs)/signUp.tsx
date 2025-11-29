@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet, Text, Alert } from 'react-native'
+import { View, Button, StyleSheet, Text, Alert, Pressable } from 'react-native'
 import { supabase } from '@/utils/supabase'
 import AuthForm from '@/components/AuthForm'
 import { useRouter } from 'expo-router'
@@ -38,10 +38,15 @@ const SignUpScreen = () => {
       
       <AuthForm submitLabel='Sign Up' onSubmit={handleSignUp} />
       
-      <Button
-        title='Already have an account? Sign In'
+      <Pressable
+        style={({ pressed }) => [
+          globalStyles.button,
+          pressed && { opacity: 0.8 }
+        ]}
         onPress={() => router.replace('/signIn')}
-      />
+      >
+        <Text style={globalStyles.buttonText}>Already have an account? Sign In</Text>
+      </Pressable>
     </View>
   )
 }

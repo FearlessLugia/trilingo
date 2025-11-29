@@ -11,5 +11,18 @@ export const globalStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.textPrimary,
+  },
+  
+  button: {
+    backgroundColor: colors['fra'],
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center'
+  },
+  
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600'
   }
 })
