@@ -20,7 +20,6 @@ const useLanguages = (query: string) => {
     
     const response = await apiFetch(url)
     const json = await response.json()
-    console.log('json', json)
     
     setLoading(false)
     setData(json)

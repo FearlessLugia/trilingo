@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
 import { useSelector } from 'react-redux'
 import { selectSaved } from '@/features/saved/savedSlice'

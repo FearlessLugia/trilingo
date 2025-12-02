@@ -2,7 +2,6 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { RecordEntry } from '@/types'
 import { RootState } from '@/store/store'
 import { createSelector } from '@reduxjs/toolkit'
-import { loadHistoryAsync } from '@/features/history/historyThunks'
 
 interface HistoryState {
   history: RecordEntry[];

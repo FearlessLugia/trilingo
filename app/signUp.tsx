@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet, Text, Alert, Pressable } from 'react-native'
+import { View, StyleSheet, Text, Alert, Pressable } from 'react-native'
 import { supabase } from '@/utils/supabase'
 import AuthForm from '@/components/AuthForm'
 import { useRouter } from 'expo-router'

@@ -5,7 +5,6 @@ import { selectHistory } from '@/features/history/historySlice'
 import { useSelector } from 'react-redux'
 import RecordList from '@/components/RecordList'
 import useLanguages from '@/hooks/useLanguages'
-import { selectUserState } from '@/features/user/userSlice'
 
 const SearchBar = ({ query, setQuery }: {
   query: string, setQuery: (value: string) => void
