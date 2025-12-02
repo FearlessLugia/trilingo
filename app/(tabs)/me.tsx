@@ -7,7 +7,7 @@ import {
   scheduleDailyReminder,
   sendTestNotification
 } from '@/utils/notifications'
-import { Redirect, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/store/store'
 import { clearHistoryAsync } from '@/features/history/historyThunks'

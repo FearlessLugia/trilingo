@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux'
 import { selectUserState } from '@/features/user/userSlice'
 
 export default function AppIndex() {
-  const userId = useSelector(selectUserState).userId
+  const { userId, loaded }= useSelector(selectUserState)
+  
+  if (!loaded) {
+    return null
+  }
   
   if (!userId) {
     return <Redirect href="/signIn" />
