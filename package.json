@@ -6,7 +6,8 @@
     "start": "expo start --go",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "eas:build:android": "npx eas build --profile development --platform android",
+    "eas:update": "npx eas update --branch preview --environment preview"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
