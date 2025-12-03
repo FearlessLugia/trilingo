@@ -8,7 +8,7 @@ E-mail: kiiro.huang@mail.utoronto.ca
 
 ## Video Demo
 
-[![Trilingo Video Demo]()]()
+[![Trilingo Video Demo](https://img.youtube.com/vi/4JJaNDeK9L4/maxresdefault.jpg)](https://youtu.be/4JJaNDeK9L4)
 
 ## Motivation
 
@@ -462,6 +462,8 @@ EXPO_PUBLIC_API_BASE_URL=https://api.kiiroh.tech
 EXPO_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 EXPO_PUBLIC_SUPABASE_PUBLIC_KEY=your-public-api-key
 ```
+
+Credentials sent to TA.
 
 These variables are automatically injected into the JavaScript runtime by Expo and can be accessed via `process.env`.
 
