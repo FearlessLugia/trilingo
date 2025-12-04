@@ -23,9 +23,9 @@ presentation, and smooth movement between related words form the core experience
 keeping the interface straightforward, allowing users to access the information they need without unnecessary steps or
 distractions.
 
-While some web-based resources (e.g., Logos Dictionary) support multilingual search, they are not optimized for mobile
-use and often feel outdated in design. _Trilingo_ offers a mobile-first interface with a more modern and responsive
-layout, making cross-language lookup easier on both iOS and Android.
+While some web-based resources (e.g., [Logos Dictionary](https://www.logos.it/)) support multilingual search, they are
+not optimized for mobile use and often feel outdated in design. _Trilingo_ offers a mobile-first interface with a more
+modern and responsive layout, making cross-language lookup easier on both iOS and Android.
 
 ## Objectives
 
@@ -50,6 +50,9 @@ modifies the corresponding part of the state.
 The app integrates with a **FastAPI** backend for trilingual search. User authentication is handled with
 **Supabase Auth**, which includes sign-in, sign-up, session persistence, and provides the session token used for
 authorized backend requests. The app also uses **Expo Notifications** for optional daily reminders.
+
+Mobile deployment uses **EAS Build** for native binaries and **EAS Update** for publishing updates and generating Expo
+Go preview links.
 
 ## Features
 
