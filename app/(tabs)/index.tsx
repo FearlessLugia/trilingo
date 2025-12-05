@@ -28,12 +28,13 @@ const HomeScreen = () => {
   const history = useSelector(selectHistory)
   
   const [query, setQuery] = useState('')
+  const trimmedQuery = query.trim()
   
-  const { data } = useLanguages(query.trim())
+  const { data } = useLanguages(trimmedQuery)
   
-  const languages = Array.isArray(data?.languages) ? data.languages : []
+  const languages = trimmedQuery && Array.isArray(data?.languages) ? data.languages : []
   const list = languages.map((lang) => ({
-    headword: query,
+    headword: trimmedQuery,
     pivot: lang,
     timestamp: Date.now()
   }))
