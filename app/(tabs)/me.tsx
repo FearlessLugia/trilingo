@@ -59,8 +59,18 @@ const NotificationSetup = () => {
       return
     }
     
+    dispatch(updatePreferenceAsync({
+      reminderEnabled: true,
+      reminderHour: hour,
+      reminderMinute: minute
+    }))
+    
     const granted = await registerForNotifications()
     if (!granted) {
+      Alert.alert(
+        'Notifications disabled',
+        'Daily reminders may not show because notification permission is turned off in system settings.'
+      )
       return
     }
     
