@@ -1,6 +1,6 @@
-import { Alert, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
+import { Alert, Platform, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import { globalStyles } from '@/styles/globalStyles'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
   cancelAllNotifications,
   registerForNotifications,
@@ -47,6 +47,8 @@ const NotificationSetup = () => {
   
   const dispatch: AppDispatch = useDispatch()
   
+  const [showPicker, setShowPicker] = useState(false)
+  
   const handleSwitch = async (value: boolean) => {
     if (!value) {
       dispatch(updatePreferenceAsync({
@@ -74,8 +76,11 @@ const NotificationSetup = () => {
   
   const handleTimeChange = async (event: any, selected: Date | undefined) => {
     if (event.type !== 'set' || !selected) {
+      setShowPicker(false)
       return
     }
+    
+    setShowPicker(false)
     
     const newHour = selected.getHours()
     const newMinute = selected.getMinutes()
@@ -95,7 +100,7 @@ const NotificationSetup = () => {
         <Text style={styles.buttonText}>Daily Reminder</Text>
         
         <View style={styles.notificationRight}>
-          {enabled && (
+          {enabled && Platform.OS === 'ios' && (
             <View style={styles.timeWrapper}>
               <DateTimePicker
                 mode='time'
@@ -105,9 +110,27 @@ const NotificationSetup = () => {
             </View>
           )}
           
+          {enabled && Platform.OS === 'android' && (
+            <Pressable onPress={() => setShowPicker(true)}>
+              <Text style={{ fontSize: 16 }}>
+                {hour.toString().padStart(2, '0')}:
+                {minute.toString().padStart(2, '0')}
+              </Text>
+            </Pressable>
+          )}
+          
           <Switch style={styles.switch} value={enabled} onValueChange={handleSwitch} />
         </View>
       </View>
+      
+      {Platform.OS === 'android' && showPicker && (
+        <DateTimePicker
+          value={reminderTime}
+          mode='time'
+          display='spinner'
+          onChange={handleTimeChange}
+        />
+      )}
       
       <Pressable style={styles.button} onPress={() => sendTestNotification(todaySavedCount)}>
         <Text style={styles.buttonText}>Send an Example Notification</Text>
@@ -260,6 +283,6 @@ const styles = StyleSheet.create({
   switch: {
     height: 20,
     alignSelf: 'center',
-    marginTop: -10
+    marginTop: Platform.OS === 'ios' ? -10 : 0
   }
 })
