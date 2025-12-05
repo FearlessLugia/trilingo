@@ -228,13 +228,9 @@ The client sends a word (query) and a pivot language (pivot).
 The server returns all synsets containing that word, including:
 
 - **id:** synset ID
-
 - **pos:** word type (noun, verb, etc.)
-
 - **gloss:** definition of this synset
-
 - **lemmas:** aligned lemmas in English, French, and Spanish
-
 - **examples:** example sentences
 
 ```json
@@ -361,9 +357,7 @@ the saved list.
 The main content is a scrollable list of synset cards. Each card includes:
 
 - The synset ID and its part of speech.
-
 - The gloss (definition) in the pivot language.
-
 - Lemma chips in three colors corresponding to English, French, and Spanish. Each chip shows a lemma aligned to this
   synset.
 
@@ -492,9 +486,7 @@ npm start
 You can test the app in several ways:
 
 - Scan the QR code with the Expo Go app on a physical device.
-
 - Press i to run on an iOS simulator.
-
 - Press a to run on an Android emulator.
 
 ## Deployment Information
@@ -525,6 +517,18 @@ npm run eas:build:android
 
 Then the APK is available in the EAS Build dashboard for download.
 
+The latest build can be downloaded at:
+
+- [GitHub Release](https://github.com/FearlessLugia/trilingo/releases/tag/1.0)
+
+- [EAS Build](https://expo.dev/accounts/kiiroh/projects/trilingo/builds/5ecf9c7f-179a-461d-8609-a7ddd36a0326)
+
+To use this APK:
+
+- Download the APK file onto an Android device.
+- If prompted, allow installation from unknown sources.
+- Tap the APK to install, then open the Trilingo app from the home screen.
+
 #### Expo Go Link
 
 For iOS devices or anyone who prefers testing through Expo Go, the project is also published via **EAS Update**.
@@ -535,16 +539,14 @@ To generate an Expo Go Link:
 npm run eas:update -- --message="<some-message-here>"
 ```
 
-The latest published version can be accessed through this link:
+The latest published version can be accessed through:
 
-[Expo Go Link](https://expo.dev/preview/update?message=update&updateRuntimeVersion=1.0.0&createdAt=2025-12-02T09%3A34%3A49.369Z&slug=exp&projectId=2823c0f2-975a-4c6b-8d13-9ccb8ce856ad&group=6797ad6f-0924-47ee-bb75-bf222667ccde)
+[Expo Go Link](https://expo.dev/preview/update?message=update&updateRuntimeVersion=1.0.0&createdAt=2025-12-05T04%3A07%3A12.646Z&slug=exp&projectId=2823c0f2-975a-4c6b-8d13-9ccb8ce856ad&group=797ce800-d61a-4384-89fb-5181cf67b585)
 
 To use this link:
 
 - Install Expo Go from the App Store or Google Play.
-
 - Open the link on your phone or scan the QR code shown by expo start.
-
 - The _Trilingo_ project will load inside Expo Go.
 
 ## Individual Contributions
