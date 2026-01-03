@@ -2,9 +2,7 @@
 
 A React Native mobile application of trilingual dictionary for English · French · Spanish.
 
-Created by: Kiiro Huang (1011781957)
-
-E-mail: kiiro.huang@mail.utoronto.ca
+Created by: Kiiro Huang
 
 ## Video Demo
 
@@ -460,8 +458,6 @@ EXPO_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 EXPO_PUBLIC_SUPABASE_PUBLIC_KEY=your-public-api-key
 ```
 
-Credentials sent to TA.
-
 These variables are automatically injected into the JavaScript runtime by Expo and can be accessed via `process.env`.
 
 ### Supabase Setup
@@ -548,10 +544,6 @@ To use this link:
 - Install Expo Go from the App Store or Google Play.
 - Open the link on your phone or scan the QR code shown by expo start.
 - The _Trilingo_ project will load inside Expo Go.
-
-## Individual Contributions
-
-Kiiro Huang: All
 
 ## Lessons Learned and Concluding Remarks
 
